@@ -1,0 +1,56 @@
+<h1>Public::Collections#show</h1>
+<p>Find me in app/views/public/collections/show.html.erb</p>
+<div>
+  <%= image_tag @collection.get_sake_image(200,200) %>
+  <p>銘柄名：<%= @collection.sake_name %></p>
+  <p>開栓状況：
+    <%= image_tag("#{@collection.remain_amount}.png", class: "amount") %>
+    <%= @collection.remain_amount_i18n %>
+  </p>
+  <p>テイスト1：
+    <% if @collection.tastes_rich == true %>
+      <span class="text-success">濃醇</span>
+    <% else %>
+      <span class="text-success">淡麗</span>
+    <% end %>
+  </p>
+  <p>テイスト2：
+    <% if @collection.tastes_sweet == true %>
+      <span class="text-success">甘口</span>
+    <% else %>
+      <span class="text-success">辛口</span>
+    <% end %>
+  </p>
+  <p>フレーバー：
+    <% if @collection.is_aromatic == true %>
+      <span class="text-success">フルーティ</span>
+    <% else %>
+      <span class="text-success">スッキリ</span>
+    <% end %>
+  </p>
+  <p>記録日：<%= @collection.created_at.strftime('%Y/%m/%d') %></p>
+  <p>
+    <% if @collection.user == current_user %>
+      <%= link_to "編集", edit_collection_path(@collection.id) %>
+      <%= link_to "削除", collection_path(@collection.id), method: :delete %>
+    <% end %>
+  </p>
+</div>
+<div>
+  <p>コメント件数：<%= @collection.collection_comments.count %></p>
+  <% @collection.collection_comments.each do |collection_comment| %>
+    <p><%= image_tag collection_comment.user.get_profile_image(100,100) %></p>
+    <%= collection_comment.user.user_name %>
+    <%= collection_comment.created_at.strftime('%Y/%m/%d') %><%= collection_comment.comment %>
+    <% if collection_comment.user == current_user %>
+      <%= link_to "削除", collection_collection_comment_path(collection_comment.collection, collection_comment), method: :delete %>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@collection, @collection_comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>
+<%= link_to "戻る", my_page_path(@collection.id) %>

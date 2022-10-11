@@ -1,0 +1,27 @@
+<h1>Public::Collections#edit</h1>
+<p>Find me in app/views/public/collections/edit.html.erb</p>
+
+<%= form_with model: @collection do |f| %>
+    <h4>画像</h4>
+      <%= f.file_field :sake_image, accept: "image/jpg, image/jpeg, image/png" %>
+    <h4>銘柄名</h4>
+      <%= f.text_field :sake_name %>
+    <h4>残量</h4>
+      <%= f.select :remain_amount, Collection.remain_amounts.keys.map{|k| [I18n.t("enums.collection.remain_amount.#{k}"), k]} %>
+    <h4>味わい１</h4>
+      <%= f.radio_button :tastes_rich, :true %>
+      <%= f.label :tastes_rich, "濃醇" %>
+      <%= f.radio_button :tastes_rich, :false %>
+      <%= f.label :tastes_rich, "淡麗" %>
+    <h4>味わい２</h4>
+      <%= f.radio_button :tastes_sweet, :true %>
+      <%= f.label :tastes_sweet, "甘口" %>
+      <%= f.radio_button :tastes_sweet, :false %>
+      <%= f.label :tastes_sweet, "辛口" %>
+    <h4>フレーバー</h4>
+      <%= f.radio_button :is_aromatic, :true %>
+      <%= f.label :is_aromatic, "フルーティ" %>
+      <%= f.radio_button :is_aromatic, :false %>
+      <%= f.label :is_aromatic, "スッキリ" %><br>
+    <%= f.submit '更新' %>
+<% end %>

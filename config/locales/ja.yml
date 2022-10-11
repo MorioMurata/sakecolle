@@ -1,0 +1,9 @@
+ja:
+  enums:
+    collection:
+      remain_amount:
+        unopened: "未開栓"
+        percent_25: "25%"
+        percent_50: "50%"
+        percent_75: "75%"
+        finish: "完飲"

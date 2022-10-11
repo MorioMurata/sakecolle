@@ -1,0 +1,66 @@
+<h1>Public::Users#show</h1>
+<p>Find me in app/views/public/users/show.html.erb</p>
+<%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+<%= link_to "Sake friends", users_index_path %>
+<%= link_to "新しい投稿", new_collection_path %>
+
+<%= link_to "collection", my_page_path %>
+<%= link_to "past collection", my_page_path(past: true) %>
+
+<table class='table table-hover table-inverse'>
+  <thead>
+    <tr>
+      <th>image</th>
+      <th>銘柄名</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @collections.each do |collection| %>
+      <tr>
+        <td>
+          <%= link_to collection_path(collection) do %>
+            <%= image_tag collection.get_sake_image(100,100) %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to collection_path(collection) do %>
+            <%= collection.sake_name %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to "#{collection.collection_comments.count} コメント", collection_path(collection) %>
+        </td>
+        <td>
+          <%= image_tag("#{collection.remain_amount}.png", class: "amount_index") %>
+          <%= collection.remain_amount_i18n %>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <% if collection.tastes_rich == true %>
+            <span class="text-success">濃醇</span>
+          <% else %>
+            <span class="text-success">淡麗</span>
+          <% end %>
+        </td>
+        <td>
+          <% if collection.tastes_sweet == true %>
+            <span class="text-success">甘口</span>
+          <% else %>
+            <span class="text-success">辛口</span>
+          <% end %>
+        </td>
+        <td>
+          <% if collection.is_aromatic == true %>
+            <span class="text-success">フルーティ</span>
+          <% else %>
+            <span class="text-success">スッキリ</span>
+          <% end %>
+        </td>
+      </tr>
+      <tr></tr>
+    <% end %>
+  </tbody>
+</table>
