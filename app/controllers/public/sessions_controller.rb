@@ -25,7 +25,7 @@ class Public::SessionsController < Devise::SessionsController
   # end
 
   def after_sign_in_path_for(resource)
-    my_page_path(current_user.id)
+    user_path(current_user.id)
   end
 
   def after_sign_out_path_for(resource)
@@ -43,8 +43,8 @@ class Public::SessionsController < Devise::SessionsController
       end
     end
   end
-  
-  
+
+
   # def reject_inactive_customer
   #   @user = User.find_by(email: params[:user][:email])
   #   if @user
@@ -54,7 +54,7 @@ class Public::SessionsController < Devise::SessionsController
   #     end
   #   end
   # end
-  
+
 
 
   # def reject_inactive_customer
@@ -66,10 +66,10 @@ class Public::SessionsController < Devise::SessionsController
   #     end
   #   end
   # end
-  
-  
+
+
   # private
-  
+
   # def fuga(user, pass)
   #   user.valid_password?(pass) && !user.is_active
   # end

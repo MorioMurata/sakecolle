@@ -12,12 +12,12 @@
     <% @users.each do |user| %>
       <tr>
         <td>
-          <%= link_to my_page_path(user) do %>
+          <%= link_to user_path(user) do %>
             <%= image_tag user.get_profile_image(200,200) %>
           <% end %>
         </td>
         <td>
-          <%= link_to my_page_path(user) do %>
+          <%= link_to user_path(user) do %>
             <%= user.user_name %>
           <% end %>
         </td>

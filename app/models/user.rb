@@ -15,9 +15,13 @@ class User < ApplicationRecord
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
-  
-  def hogehoge?(pass)
-    valid_password?(pass) && !is_active
+
+  def calculate_capacity
+    stocking_capacity * 0.8
   end
+
+  # def hogehoge?(pass)
+  #   valid_password?(pass) && !is_active
+  # end
 
 end

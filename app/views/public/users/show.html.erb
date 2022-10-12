@@ -1,14 +1,19 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<%= image_tag @user.get_profile_image(100,100) %>
+<%= @user.user_name %><br>
+<%= @user.introduction %><br>
+<%= @user.stocking_capacity %><br>
+
+<!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
+<%= over_eighty_percent_of_stock_capacity(@collections, @user) %><br>
+
 <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-<%= link_to "Sake friends", users_index_path %>
+<%= link_to "Sake friends", users_path %>
 <% if @user == current_user %>
-  <%= link_to "ユーザー編集", account_edit_path(@user) %>
+  <%= link_to "ユーザー編集", edit_user_path(@user) %>
 <% end %>
 <%= link_to "新しい投稿", new_collection_path %>
-
-<%= link_to "collection", my_page_path %>
-<%= link_to "past collection", my_page_path(past: true) %>
+<%= link_to "collection", user_path %>
+<%= link_to "past collection", user_path(past: true) %>
 
 <table class='table table-hover table-inverse'>
   <thead>
@@ -38,12 +43,11 @@
           <%= image_tag("#{collection.remain_amount}.png", class: "amount_index") %>
           <%= collection.remain_amount_i18n %>
         </td>
-        <% if collection.open_date.nil?  %>
-          <td>未開栓しています</td>
-        <% else %>
-          <td><%= hoge(collection) %></td>
-
-
+        <!--開栓日時カラムが空でない（＝開栓済み）かつ、残量が0（完飲済み）でない時-->
+        <%# if !collection.open_date.nil? && collection.remain_amount != "finish" %>
+        <% unless collection.open_date.nil? || collection.remain_amount == "finish" %>
+          <!--開栓後どれくらい経過しているか表示。how_long_time_elapseメソッドについてはapplication_helper.rb内に定義。-->
+          <td><%= how_long_time_elapse(collection) %></td>
         <% end %>
       </tr>
       <tr>

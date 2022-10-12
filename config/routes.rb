@@ -26,10 +26,12 @@ Rails.application.routes.draw do
 
   scope module: 'public' do
     root to: 'homes#top'
-      get 'users/my_page/:id' => 'users#show', as: 'my_page'
-      get 'users/account/:id/edit' => 'users#edit', as: 'account_edit'
-      patch 'users/information/:id' => 'users#update'
-      get 'users/index'
+    resources :users, except: [:new, :create]
+      # patch 'users/account/:id' => 'users#update', as: 'account_update'
+      # get 'users/my_page/:id' => 'users#show', as: 'my_page'
+      # get 'users/account/:id/edit' => 'users#edit', as: 'account_edit'
+      
+      # get 'users/index'
     resources :collections, except: [:index] do
       resources :collection_comments, only: [:create, :destroy]
     end
