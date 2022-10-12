@@ -6,6 +6,7 @@ class Public::CollectionsController < ApplicationController
   def create
     @collection = Collection.new(collection_params)
     @collection.user_id = current_user.id
+   
     @collection.save
     redirect_to my_page_path(@collection.user_id)
   end
@@ -27,6 +28,12 @@ class Public::CollectionsController < ApplicationController
 
   def update
     collection = Collection.find(params[:id])
+ 
+    if collection.remain_amount == "unopened" && params[:collection][:remain_amount] != "unopened"
+      collection.open_date = Time.current
+    elsif collection.remain_amount != "unopened" &&  params[:collection][:remain_amount] == "unopened"
+      collection.open_date = nil
+    end
     collection.update(update_collection_params)
     redirect_to my_page_path(collection.user_id)
   end

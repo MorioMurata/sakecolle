@@ -15,5 +15,9 @@ class User < ApplicationRecord
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
+  
+  def hogehoge?(pass)
+    valid_password?(pass) && !is_active
+  end
 
 end

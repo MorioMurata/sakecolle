@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 2022_10_08_120248) do
     t.boolean "tastes_rich", default: true
     t.boolean "tastes_sweet", default: true
     t.boolean "is_aromatic", default: true
+    t.datetime "open_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

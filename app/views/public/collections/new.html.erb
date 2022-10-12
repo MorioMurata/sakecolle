@@ -3,7 +3,7 @@
 
 <%= form_with model: @collection do |f| %>
     <h4>画像</h4>
-      <%= f.file_field :image, accept: "image/jpg, image/jpeg, image/png" %>
+      <%= f.file_field :sake_image, accept: "image/jpg, image/jpeg, image/png" %>
     <h4>銘柄名</h4>
       <%= f.text_field :sake_name %>
     <%= f.submit '投稿' %>

@@ -2,6 +2,9 @@
 <p>Find me in app/views/public/users/show.html.erb</p>
 <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
 <%= link_to "Sake friends", users_index_path %>
+<% if @user == current_user %>
+  <%= link_to "ユーザー編集", account_edit_path(@user) %>
+<% end %>
 <%= link_to "新しい投稿", new_collection_path %>
 
 <%= link_to "collection", my_page_path %>
@@ -35,6 +38,13 @@
           <%= image_tag("#{collection.remain_amount}.png", class: "amount_index") %>
           <%= collection.remain_amount_i18n %>
         </td>
+        <% if collection.open_date.nil?  %>
+          <td>未開栓しています</td>
+        <% else %>
+          <td><%= hoge(collection) %></td>
+
+
+        <% end %>
       </tr>
       <tr>
         <td></td>

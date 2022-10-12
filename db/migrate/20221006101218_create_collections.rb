@@ -8,6 +8,7 @@ class CreateCollections < ActiveRecord::Migration[6.1]
       t.boolean :tastes_rich, default: true
       t.boolean :tastes_sweet, default: true
       t.boolean :is_aromatic, default: true
+      t.datetime :open_date
 
       t.timestamps
     end

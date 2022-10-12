@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   scope module: 'public' do
     root to: 'homes#top'
       get 'users/my_page/:id' => 'users#show', as: 'my_page'
-      get 'users/information/:id/edit' => 'users#edit'
+      get 'users/account/:id/edit' => 'users#edit', as: 'account_edit'
       patch 'users/information/:id' => 'users#update'
       get 'users/index'
     resources :collections, except: [:index] do

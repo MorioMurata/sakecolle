@@ -43,4 +43,34 @@ class Public::SessionsController < Devise::SessionsController
       end
     end
   end
+  
+  
+  # def reject_inactive_customer
+  #   @user = User.find_by(email: params[:user][:email])
+  #   if @user
+  #     if @user.hogehoge?(params[:user][:password])
+  #       flash[:danger] = 'お客様は退会済みです。申し訳ございませんが、別のメールアドレスをお使いください。'
+  #       redirect_to new_user_session_path
+  #     end
+  #   end
+  # end
+  
+
+
+  # def reject_inactive_customer
+  #   @user = User.find_by(email: params[:user][:email])
+  #   if @user
+  #     if fuga(@user, params[:user][:password])
+  #       flash[:danger] = 'お客様は退会済みです。申し訳ございませんが、別のメールアドレスをお使いください。'
+  #       redirect_to new_user_session_path
+  #     end
+  #   end
+  # end
+  
+  
+  # private
+  
+  # def fuga(user, pass)
+  #   user.valid_password?(pass) && !user.is_active
+  # end
 end
