@@ -1,10 +1,11 @@
 <h1>Public::Collections#show</h1>
 <p>Find me in app/views/public/collections/show.html.erb</p>
 <div>
+  <%= render 'public/favorites/favorite_btn', collection: @collection %>
   <%= image_tag @collection.get_sake_image(200,200) %>
   <p>銘柄名：<%= @collection.sake_name %></p>
   <p>開栓状況：
-    <%= image_tag("#{@collection.remain_amount}.png", class: "amount") %>
+    <%= image_tag("#{@collection.remain_amount}.png", class: "amount_index") %>
     <%= @collection.remain_amount_i18n %>
   </p>
   <p>テイスト1：

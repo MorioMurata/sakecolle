@@ -2,9 +2,20 @@
 <%= @user.user_name %><br>
 <%= @user.introduction %><br>
 <%= @user.stocking_capacity %><br>
+<p><%=link_to "フォロー中", follows_user_path(@user.id) %></p>
+<p><%=link_to "フォロワー", followers_user_path(@user.id) %></p>
+<% if current_user != @user %>
+    <% if @user.followed_by?(current_user) %>
+        <p><%=link_to "フォロー済み", user_relationships_path(@user.id), method: :delete %></p>
+    <% else %>
+        <p><%=link_to "フォローする", user_relationships_path(@user.id), method: :post %></p>
+    <% end %>
+<% end %>
 
 <!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
-<%= over_eighty_percent_of_stock_capacity(@collections, @user) %><br>
+<% if @collection.count >= 1 %>
+  <%= over_eighty_percent_of_stock_capacity(@collections, @user) %><br>
+<% end %>
 
 <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
 <%= link_to "Sake friends", users_path %>
@@ -20,6 +31,9 @@
     <tr>
       <th>image</th>
       <th>銘柄名</th>
+      <th></th>
+      <th></th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -43,10 +57,13 @@
           <%= image_tag("#{collection.remain_amount}.png", class: "amount_index") %>
           <%= collection.remain_amount_i18n %>
         </td>
+        <td>
+          <%= render 'public/favorites/favorite_btn', collection: collection %>
+        </td>
         <!--開栓日時カラムが空でない（＝開栓済み）かつ、残量が0（完飲済み）でない時-->
         <%# if !collection.open_date.nil? && collection.remain_amount != "finish" %>
         <% unless collection.open_date.nil? || collection.remain_amount == "finish" %>
-          <!--開栓後どれくらい経過しているか表示。how_long_time_elapseメソッドについてはapplication_helper.rb内に定義。-->
+        <!--開栓後どれくらい経過しているか表示。how_long_time_elapseメソッドについてはapplication_helper.rb内に定義。-->
           <td><%= how_long_time_elapse(collection) %></td>
         <% end %>
       </tr>

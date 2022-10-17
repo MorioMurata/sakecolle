@@ -15,15 +15,26 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @collection = @user.collections
     #past collectionが選択された(=URLに:pastがある)時
     if params[:past].present?
     #残量ステータスが"完飲"の投稿を呼び出し(.finishはenumのカラム名)
-      @collections = Collection.finish
+      @collections = @collection.finish
     #collectionが選択された(=URLに:pastがない)時
     else
     #残量ステータスが"完飲"ではない投稿を呼び出し
-      @collections = Collection.where.not(remain_amount: 'finish')
+      @collections = @collection.where.not(remain_amount: 'finish')
     end
+  end
+  
+  def follows
+    user = User.find(params[:id])
+    @users = user.followings
+  end
+
+  def followers
+    user = User.find(params[:id])
+    @users = user.followers
   end
 
   private

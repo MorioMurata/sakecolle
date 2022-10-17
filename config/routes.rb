@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   # 管理者用
   # URL /admin/sign_in ...
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
@@ -26,14 +25,14 @@ Rails.application.routes.draw do
 
   scope module: 'public' do
     root to: 'homes#top'
-    resources :users, except: [:new, :create]
-      # patch 'users/account/:id' => 'users#update', as: 'account_update'
-      # get 'users/my_page/:id' => 'users#show', as: 'my_page'
-      # get 'users/account/:id/edit' => 'users#edit', as: 'account_edit'
-      
-      # get 'users/index'
+    resources :users, except: [:new, :create] do
+      resource :relationships, only: [:create, :destroy]
+      get :follows, on: :member
+      get :followers, on: :member
+    end
     resources :collections, except: [:index] do
       resources :collection_comments, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
     end
 
   end
