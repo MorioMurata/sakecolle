@@ -1,6 +1,8 @@
 class Public::CollectionsController < ApplicationController
   def new
-    @collection = Collection.new
+    @new_collection = Collection.new
+    @user = current_user
+    @collection = @user.collections
   end
 
   def create
@@ -12,6 +14,8 @@ class Public::CollectionsController < ApplicationController
 
   def show
     @collection = Collection.find(params[:id])
+    @user = @collection.user
+    @user_collection = @collection.user.collections
     @collection_comment = CollectionComment.new
   end
 
@@ -22,7 +26,10 @@ class Public::CollectionsController < ApplicationController
   end
 
   def edit
-    @collection = Collection.find(params[:id])
+    @edit_collection = Collection.find(params[:id])
+    @user = current_user
+    @collection = @user.collections
+    # redirect_to root_path, notice: 'Error' if current_user.id != @collection.user_id
   end
 
   def update

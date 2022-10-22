@@ -31,13 +31,19 @@ class Public::SessionsController < Devise::SessionsController
   def after_sign_out_path_for(resource)
     root_path
   end
+  
+  def guest_sign_in
+    user = User.guest
+    sign_in user
+    redirect_to user_path(user), notice: 'guestuserでログインしました。'
+  end
 
   protected
 
-  def reject_inactive_customer
+  def reject_user
     @user = User.find_by(email: params[:user][:email])
     if @user
-      if @user.valid_password?(params[:user][:password]) && !@user.is_active
+      if @user.valid_password?(params[:user][:password]) && (@user.is_deleted == true)
         flash[:danger] = 'お客様は退会済みです。申し訳ございませんが、別のメールアドレスをお使いください。'
         redirect_to new_user_session_path
       end

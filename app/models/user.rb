@@ -26,11 +26,25 @@ class User < ApplicationRecord
   end
 
   def calculate_capacity
+    # binding.irb
+    # byebug
+    stocking_capacity = stocking_capacity.nil? ? 0 : stocking_capacity
     stocking_capacity * 0.8
   end
 
   def followed_by?(user)
     passive_relationships.find_by(following_id: user.id).present?
+  end
+
+  def active_for_authentication?
+    super && (is_deleted == false)
+  end
+
+  def self.guest
+    find_or_create_by!(user_name: 'guestuser' ,email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.user_name = "guestuser"
+    end
   end
 
   # def hogehoge?(pass)

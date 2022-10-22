@@ -1,12 +1,28 @@
-<p>アカウント編集</p>
-
-<%= form_with model: @user do |f| %>
-  <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/jpg, image/jpeg, image/png" %><br>
-  <h3>写真を変更</h3>
-  <span>ユーザー名：<%= f.text_field :user_name, autofocus: true, id:"inputName", placeholder:"名前" %></span><br>
-  <span>自己紹介：<%= f.text_field :introduction, placeholder:"自己紹介" %></span><br>
-  <span>在庫上限（目安の本数）：<%= f.select :stocking_capacity, *[1..200], include_blank: "個数選択" %></span>
-  <%= f.submit "変更を保存" %>
-<% end %>
-
-
+<%= render 'layouts/header', user: @user, collection: @collection %>
+<%= render 'layouts/introduction', user: @user %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2">
+      <%= render 'layouts/navbar' %>
+    </div>
+      <div class="col-lg-4">
+        <%= form_with model: @user do |f| %>
+        <%= image_tag @user.get_profile_image(200,200), class: "profimg" %><br>
+        <p>現在の画像</p>
+        <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/jpg, image/jpeg, image/png" %>
+        <% end %>
+      </div>
+      <div class="col-lg-6">
+        <%= form_with model: @user do |f| %>
+        <span>ユーザー名</span><br>
+        <%= f.text_field :user_name, class: "form-control" %><br>
+        <span>自己紹介</span><br>
+        <%= f.text_area :introduction, class: "form-control", row: "5" %><br>
+        <span>在庫上限（目安の本数）：<%= f.select :stocking_capacity, *[1..200], include_blank: "個数選択" %></span><br>
+        <div class="text-right">
+          <%= f.submit "変更を保存" %>
+        </div>
+        <% end %>
+      </div>
+  </div>
+</div>

@@ -1,6 +1,10 @@
 class Public::UsersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_guest_user, only: [:edit]
+
   def edit
     @user = User.find(params[:id])
+    @collection = @user.collections
   end
 
   def update
@@ -10,7 +14,9 @@ class Public::UsersController < ApplicationController
   end
 
   def index
+    @user = current_user
     @users = User.all
+    @collection = @user.collections
   end
 
   def show
@@ -26,15 +32,35 @@ class Public::UsersController < ApplicationController
       @collections = @collection.where.not(remain_amount: 'finish')
     end
   end
-  
+
   def follows
-    user = User.find(params[:id])
-    @users = user.followings
+    @user = User.find(params[:id])
+    @collection = @user.collections
+    @users = @user.followings
   end
 
   def followers
-    user = User.find(params[:id])
-    @users = user.followers
+    @user = User.find(params[:id])
+    @collection = @user.collections
+    @users = @user.followers
+  end
+
+  def unsubscribe
+  end
+
+  def withdrawal
+    @user = User.find(params[:id])
+    @user.update(is_deleted: true)
+    reset_session
+    flash[:notice] = "退会処理を実行いたしました"
+    redirect_to root_path
+  end
+
+  def favorites
+    @user = User.find(params[:id])
+    @collection = @user.collections
+    favorites = Favorite.where(user_id: @user.id).pluck(:collection_id)
+    @favorite_collections = Collection.find(favorites)
   end
 
   private
@@ -43,4 +69,11 @@ class Public::UsersController < ApplicationController
     params.require(:user).permit(:user_name, :profile_image, :introduction, :stocking_capacity)
   end
 
+  def ensure_guest_user
+    @user = User.find(params[:id])
+    if @user.email == "guest@example.com"
+      flash[:notice] = 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
+      redirect_to user_path(current_user)
+    end
+  end
 end

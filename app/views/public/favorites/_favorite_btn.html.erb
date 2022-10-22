@@ -1,11 +1,11 @@
 <% if collection.favorited_by?(current_user) %>
-  <%= link_to collection_favorites_path(collection), method: :delete do %>
+  <%= link_to collection_favorites_path(collection), method: :delete, remote: true do %>
     <div class="unlike-btn">
       <i class="fas fa-heart"></i><%= collection.favorites.count %>
     </div>
   <% end %>
 <% else %>
-  <%= link_to collection_favorites_path(collection), method: :post do %>
+  <%= link_to collection_favorites_path(collection), method: :post, remote: true do %>
     <div class="like-btn">
       <i class="far fa-heart" ></i><%= collection.favorites.count %>
     </div>

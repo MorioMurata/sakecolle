@@ -1,0 +1,42 @@
+<header>
+  <div class="container">
+    <div class="row justify-content-start">
+      <div class="col-lg-2 offset-md-2">
+        <%= image_tag user.get_profile_image(100,100), class: "profimg" %>
+      </div>
+      <div class="col-md-auto">
+        <%= @user.user_name %><br>
+        <div class="number">
+        <%=link_to follows_user_path(user.id), class: "number" do %>
+          <%= user.followings.count %>フォロー
+        <% end %>
+        <%=link_to followers_user_path(user.id), class: "number" do %>
+          <%= user.followers.count %>フォロワー
+        <% end %><br>
+        </div>
+        <b><%= collection.where.not(remain_amount: "finish").count %></b> / <%= user.stocking_capacity %> collections
+      </div>
+      <div class="col-lg-2">
+        <div class="gear">
+        <% if (user == current_user) && (user.email != "guest@example.com") %>
+          <%= link_to edit_user_path(user), class: "gear" do %>
+            <i class="fa-solid fa-gear faa-spin animated"></i>
+          <% end %>
+        <% end %>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <% if current_user != user %>
+          <% if user.followed_by?(current_user) %>
+            <p><%=link_to "フォロー中", user_relationships_path(user.id), method: :delete %></p>
+          <% else %>
+            <p><%=link_to "フォローする", user_relationships_path(user.id), method: :post %></p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div>
+    <%= flash[:notice] %>
+  </div>
+</header>

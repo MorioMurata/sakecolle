@@ -1,0 +1,31 @@
+<%= link_to "トップページへ", admin_top_path %>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>image</th>
+      <th>name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td>
+          <%= link_to admin_user_path(user) do %>
+            <%= image_tag user.get_profile_image(200,200) %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to admin_user_path(user) do %>
+            <%= user.user_name %>
+          <% end %>
+        </td>
+        <th>
+          <%= link_to admin_user_path(user), method: :delete do %>
+            消す
+          <% end %>
+        </th>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

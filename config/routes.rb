@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'top' => 'homes#top', as: 'top'
+    resources :users, only: [:index, :show, :destroy]
+    resources :collections, except: [:index]
   end
 
 
@@ -23,12 +25,19 @@ Rails.application.routes.draw do
     unlocks: "public/unlock"
   }
 
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in'
+  end
+
   scope module: 'public' do
     root to: 'homes#top'
     resources :users, except: [:new, :create] do
+      get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
+      patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
       resource :relationships, only: [:create, :destroy]
       get :follows, on: :member
       get :followers, on: :member
+      get :favorites, on: :member
     end
     resources :collections, except: [:index] do
       resources :collection_comments, only: [:create, :destroy]
