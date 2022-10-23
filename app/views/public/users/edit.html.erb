@@ -1,19 +1,17 @@
 <%= render 'layouts/header', user: @user, collection: @collection %>
 <%= render 'layouts/introduction', user: @user %>
 <div class="container">
+  <%= form_with model: @user do |f| %>
   <div class="row">
     <div class="col-lg-2">
       <%= render 'layouts/navbar' %>
     </div>
       <div class="col-lg-4">
-        <%= form_with model: @user do |f| %>
         <%= image_tag @user.get_profile_image(200,200), class: "profimg" %><br>
         <p>現在の画像</p>
         <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/jpg, image/jpeg, image/png" %>
-        <% end %>
       </div>
       <div class="col-lg-6">
-        <%= form_with model: @user do |f| %>
         <span>ユーザー名</span><br>
         <%= f.text_field :user_name, class: "form-control" %><br>
         <span>自己紹介</span><br>
@@ -22,7 +20,7 @@
         <div class="text-right">
           <%= f.submit "変更を保存" %>
         </div>
-        <% end %>
       </div>
   </div>
+  <% end %>
 </div>
