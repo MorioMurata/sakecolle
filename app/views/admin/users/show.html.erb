@@ -1,75 +1,110 @@
-<%= image_tag @user.get_profile_image(100,100) %>
-<%= @user.user_name %><br>
-<%= @user.introduction %><br>
-<%= @user.stocking_capacity %><br>
-
-<!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
-<% if @collection.count >= 1 %>
-  <%= over_eighty_percent_of_stock_capacity(@collections, @user) %><br>
-<% end %>
-
-<%= link_to "ユーザー一覧へ", admin_users_path %>
-<%= link_to "collection", user_path %>
-<%= link_to "past collection", user_path(past: true) %>
-<%= link_to admin_user_path(@user), method: :delete do %>消す<% end %>
-
-<table class='table table-hover table-inverse'>
-  <thead>
-    <tr>
-      <th>image</th>
-      <th>銘柄名</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @collections.each do |collection| %>
-      <tr>
-        <td>
-          <%= image_tag collection.get_sake_image(100,100) %>
-        </td>
-        <td>
-          <%= collection.sake_name %>
-        </td>
-        <td>#{collection.collection_comments.count} コメント</td>
-        <td>
-          <%= image_tag("#{collection.remain_amount}.png", class: "amount_index") %>
-          <%= collection.remain_amount_i18n %>
-        </td>
-        <!--開栓日時カラムが空でない（＝開栓済み）かつ、残量が0（完飲済み）でない時-->
-        <%# if !collection.open_date.nil? && collection.remain_amount != "finish" %>
-        <% unless collection.open_date.nil? || collection.remain_amount == "finish" %>
-        <!--開栓後どれくらい経過しているか表示。how_long_time_elapseメソッドについてはapplication_helper.rb内に定義。-->
-          <td><%= how_long_time_elapse(collection) %></td>
+<%= render 'layouts/admin_header' %>
+<header>
+  <div class="container">
+    <div class="row justify-content-start">
+      <div class="col-lg-2">
+        <!--<img src="/assets/SakeColle.png" alt="">-->
+      </div>
+      <div class="col-lg-2">
+        <%= image_tag @user.get_profile_image(100,100), class: "profimg" %>
+      </div>
+      <div class="col-md-auto">
+        <%= @user.user_name %><br>
+        <div class="number">
+        <%=link_to follows_user_path(@user.id), class: "number" do %>
+          <%= @user.followings.count %>フォロー
         <% end %>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <% if collection.tastes_rich == true %>
-            <span class="text-success">濃醇</span>
-          <% else %>
-            <span class="text-success">淡麗</span>
-          <% end %>
-        </td>
-        <td>
-          <% if collection.tastes_sweet == true %>
-            <span class="text-success">甘口</span>
-          <% else %>
-            <span class="text-success">辛口</span>
-          <% end %>
-        </td>
-        <td>
-          <% if collection.is_aromatic == true %>
-            <span class="text-success">フルーティ</span>
-          <% else %>
-            <span class="text-success">スッキリ</span>
-          <% end %>
-        </td>
-      </tr>
-      <tr></tr>
-    <% end %>
-  </tbody>
-</table>
+        <%=link_to followers_user_path(@user.id), class: "number" do %>
+          <%= @user.followers.count %>フォロワー
+        <% end %><br>
+        </div>
+        <b><%= @collection.where.not(remain_amount: "finish").count %></b> / <%= @user.stocking_capacity %> collections
+      </div>
+      <div class="col-lg-2 pt-4">
+        <%= link_to "アカウントを削除する", admin_user_path(@user), method: :delete, class: "number" %>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10 offset-2">
+      <!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
+      <% if @collection.count >= 1 %>
+        <%= over_eighty_percent_of_stock_capacity(@collections, @user) %><br>
+      <% end %><br>
+      <%= link_to admin_user_path do %>
+        <button type="button" class="btn btn-secondary">collection</button>
+      <% end %>
+      <%= link_to admin_user_path(past: true) do %>
+        <button type="button" class="btn btn-secondary">past collection</button>
+      <% end %><br>
+      <% @collections.each do |collection| %>
+      <div class="card mb-2">
+        <div class="row no-gutters">
+          <div class="img col-md-2">
+            <div align="center">
+              <%= link_to admin_collection_path(collection) do %>
+                <%= image_tag collection.get_sake_image(100,100) %>
+              <% end %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= link_to admin_collection_path(collection) do %>
+                  <%= collection.sake_name %>
+                <% end %>
+              </h5>
+              <p class="card-text">
+                <% if collection.tastes_rich == true %>
+                  <span class="text-success">濃醇</span>
+                <% else %>
+                  <span class="text-success">淡麗</span>
+                <% end %>
+                <% if collection.tastes_sweet == true %>
+                  <span class="text-success">甘口</span>
+                <% else %>
+                  <span class="text-success">辛口</span>
+                <% end %>
+                <% if collection.is_aromatic == true %>
+                  <span class="text-success">フルーティ</span>
+                <% else %>
+                  <span class="text-success">スッキリ</span>
+                <% end %>
+              </p>
+              <div id="favorites-<%= collection.id %>" class="card-text">
+                <div class="like-btn">
+                  <i class="far fa-heart" ></i><%= collection.favorites.count %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="bottle">
+              <div align="center">
+                <%= image_tag("#{collection.remain_amount}.png", class: "amount_index") %>
+                <%= collection.remain_amount_i18n %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="time_elapse">
+              <div align="center">
+                <!--開栓日時カラムが空でない（＝開栓済み）かつ、残量が0（完飲済み）でない時-->
+                <%# if !collection.open_date.nil? && collection.remain_amount != "finish" %>
+                <% unless collection.open_date.nil? || collection.remain_amount == "finish" %>
+                <!--開栓後どれくらい経過しているか表示。how_long_time_elapseメソッドについてはapplication_helper.rb内に定義。-->
+                  <%= how_long_time_elapse(collection) %>
+                <% end %><br>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %><br>
+    </div>
+  </div>
+</div>
+

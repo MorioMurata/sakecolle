@@ -40,6 +40,12 @@ header{
   margin-top: 70px;
 }
 
+.nav3{
+  font-size: 30px;
+  color: #708090;
+  margin-left: 30px;
+}
+
 .img{
   padding-top: 30px
 }
@@ -61,7 +67,10 @@ header{
   padding: 10px;
 }
 
-.edit_img{
-
+.dead{
+  padding-top: 60px
 }
 
+.fa-comment-dots{
+  font-size: 20px;
+}

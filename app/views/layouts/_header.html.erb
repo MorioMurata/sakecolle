@@ -1,11 +1,14 @@
 <header>
   <div class="container">
     <div class="row justify-content-start">
-      <div class="col-lg-2 offset-md-2">
+      <div class="col-lg-2">
+        <%= image_tag 'SakeColle.png', :size => '150x150' %>
+      </div>
+      <div class="col-lg-2">
         <%= image_tag user.get_profile_image(100,100), class: "profimg" %>
       </div>
       <div class="col-md-auto">
-        <%= @user.user_name %><br>
+        <%= user.user_name %><br>
         <div class="number">
         <%=link_to follows_user_path(user.id), class: "number" do %>
           <%= user.followings.count %>フォロー

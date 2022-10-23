@@ -1,4 +1,6 @@
 class Public::CollectionsController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @new_collection = Collection.new
     @user = current_user

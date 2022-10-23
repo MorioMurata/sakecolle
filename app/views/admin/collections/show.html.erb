@@ -1,0 +1,92 @@
+<%= render 'layouts/admin_header' %>
+<header>
+  <div class="container">
+    <div class="row justify-content-start">
+      <div class="col-lg-2 offset-md-2">
+        <%= image_tag @user.get_profile_image(100,100), class: "profimg" %>
+      </div>
+      <div class="col-md-auto">
+        <%= @user.user_name %><br>
+        <div class="number">
+        <%=link_to follows_user_path(@user.id), class: "number" do %>
+          <%= @user.followings.count %>フォロー
+        <% end %>
+        <%=link_to followers_user_path(@user.id), class: "number" do %>
+          <%= @user.followers.count %>フォロワー
+        <% end %><br>
+        </div>
+        <b><%= @user_collection.where.not(remain_amount: "finish").count %></b> / <%= @user.stocking_capacity %> collections
+      </div>
+      <div class="col-lg-2">
+        <%= link_to "アカウントを削除する", admin_user_path(@user), method: :delete, class: "number" %>
+      </div>
+    </div>
+  </div>
+</header>
+<div>
+  <%= render 'layouts/introduction', user: @user %>
+</div>
+<div class="container">
+  <div class="row">
+    <!-- maincontents -->
+    <div class="col-lg-10 offset-2">
+      <div class="row">
+        <div class="col-4">
+          <%= image_tag @collection.get_sake_image(200,200) %>
+        </div>
+        <div class="col-8">
+          <p>銘柄名：<%= @collection.sake_name %></p>
+          <p>開栓状況：
+            <%= image_tag("#{@collection.remain_amount}.png", class: "amount_index") %>
+            <%= @collection.remain_amount_i18n %>
+          </p>
+          <p>テイスト1：
+            <% if @collection.tastes_rich == true %>
+              <span class="text-success">濃醇</span>
+            <% else %>
+              <span class="text-success">淡麗</span>
+            <% end %>
+          </p>
+          <p>テイスト2：
+            <% if @collection.tastes_sweet == true %>
+              <span class="text-success">甘口</span>
+            <% else %>
+              <span class="text-success">辛口</span>
+            <% end %>
+          </p>
+          <p>フレーバー：
+            <% if @collection.is_aromatic == true %>
+              <span class="text-success">フルーティ</span>
+            <% else %>
+              <span class="text-success">スッキリ</span>
+            <% end %>
+          </p>
+          <p>記録日：<%= @collection.created_at.strftime('%Y/%m/%d') %></p>
+          <p>
+            <% if @collection.user == current_user %>
+              <%= link_to "編集", edit_collection_path(@collection.id) %>
+              <%= link_to "削除", collection_path(@collection.id), method: :delete %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+      <!-- comments block -->
+        <div class="offset-1">
+          <div class="row">
+            <i class="fa-regular fa-comment-dots"></i><%= @collection.collection_comments.count %>
+          </div>
+        <% @collection.collection_comments.each do |collection_comment| %>
+          <span><%= image_tag collection_comment.user.get_profile_image(50,50) %><%= collection_comment.user.user_name %></span><br>
+          <%= collection_comment.comment %><br>
+          <%= collection_comment.created_at.strftime('%Y/%m/%d') %>
+          <% if collection_comment.user == current_user %>
+            <%= link_to "削除", collection_collection_comment_path(collection_comment.collection, collection_comment), method: :delete %>
+          <% end %>
+        <% end %>
+      </div>
+      <!-- comments block end -->
+    </div>
+    <!-- maincontents end -->
+  </div>
+</div>
+

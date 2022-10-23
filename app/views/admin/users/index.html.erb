@@ -1,31 +1,38 @@
-<%= link_to "トップページへ", admin_top_path %>
-<table class='table'>
-  <thead>
-    <tr>
-      <th>image</th>
-      <th>name</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td>
-          <%= link_to admin_user_path(user) do %>
-            <%= image_tag user.get_profile_image(200,200) %>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to admin_user_path(user) do %>
-            <%= user.user_name %>
-          <% end %>
-        </td>
-        <th>
-          <%= link_to admin_user_path(user), method: :delete do %>
-            消す
-          <% end %>
-        </th>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render 'layouts/admin_header' %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10 offset-2">
+      <% @users.each do |user| %>
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-3">
+              <div align="center">
+                <%= link_to admin_user_path(user) do %>
+                  <%= image_tag user.get_profile_image(150,150), class: "profimg" %>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= link_to admin_user_path(user) do %>
+                    <%= user.user_name %>
+                  <% end %>
+                </h5>
+                <p class="card-text number">
+                  <%= user.followings.count %>フォロー
+                </p>
+                <p class="card-text number">
+                  <%= user.followers.count %>フォロワー
+                </p>
+              </div>
+            </div>
+            <div class="col-md-3 dead">
+              <%= link_to "アカウントを削除する", admin_user_path(user), method: :delete, class: "number" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

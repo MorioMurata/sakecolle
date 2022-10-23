@@ -16,6 +16,8 @@ class Public::UsersController < ApplicationController
   def index
     @user = current_user
     @users = User.all
+    #ユーザーの一覧に自分を除く全ユーザーを表示させる
+    @user_index = @users.where.not(id: current_user.id)
     @collection = @user.collections
   end
 

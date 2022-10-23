@@ -1,4 +1,5 @@
 class Public::CollectionCommentsController < ApplicationController
+before_action :authenticate_user!
 
   def create
     collection = Collection.find(params[:collection_id])

@@ -67,12 +67,15 @@
             <i class="fa-regular fa-comment-dots"></i><%= @collection.collection_comments.count %>
           </div>
         <% @collection.collection_comments.each do |collection_comment| %>
-          <span><%= image_tag collection_comment.user.get_profile_image(50,50) %><%= collection_comment.user.user_name %></span><br>
+          <div>
+            <%= image_tag collection_comment.user.get_profile_image(50,50) %>
+            <%= collection_comment.user.user_name %>
+            <%= collection_comment.created_at.strftime('%Y/%m/%d') %>
+            <% if collection_comment.user == current_user %>
+              <%= link_to "削除", collection_collection_comment_path(collection_comment.collection, collection_comment), method: :delete %>
+            <% end %>
+          </div>
           <%= collection_comment.comment %><br>
-          <%= collection_comment.created_at.strftime('%Y/%m/%d') %>
-          <% if collection_comment.user == current_user %>
-            <%= link_to "削除", collection_collection_comment_path(collection_comment.collection, collection_comment), method: :delete %>
-          <% end %>
         <% end %>
       </div>
       <!-- comments block end -->
