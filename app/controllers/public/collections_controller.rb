@@ -58,10 +58,10 @@ class Public::CollectionsController < ApplicationController
       collection.open_date = nil
     end
     post_params = update_collection_params
-    post_params[:tastes_rich] = Integer(post_params[:tastes_rich])
-    post_params[:tastes_sweet] = Integer(post_params[:tastes_sweet])
-    post_params[:is_aromatic] = Integer(post_params[:is_aromatic])
-    collection.update(post_params)
+    post_params[:tastes_rich] = post_params[:tastes_rich]&.to_i
+    post_params[:tastes_sweet] = post_params[:tastes_sweet]&.to_i
+    post_params[:is_aromatic] = post_params[:is_aromatic]&.to_i
+    collection.update!(post_params)
     redirect_to user_path(collection.user_id)
   end
 
