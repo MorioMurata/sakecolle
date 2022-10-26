@@ -8,17 +8,13 @@
       <div class="col-md-auto">
         <%= @user.user_name %><br>
         <div class="number">
-        <%=link_to follows_user_path(@user.id), class: "number" do %>
           <%= @user.followings.count %>フォロー
-        <% end %>
-        <%=link_to followers_user_path(@user.id), class: "number" do %>
           <%= @user.followers.count %>フォロワー
-        <% end %><br>
         </div>
         <b><%= @user_collection.where.not(remain_amount: "finish").count %></b> / <%= @user.stocking_capacity %> collections
       </div>
       <div class="col-lg-2">
-        <%= link_to "アカウントを削除する", admin_user_path(@user), method: :delete, class: "number" %>
+        <%= link_to "アカウントを削除する", admin_user_path(@user), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
       </div>
     </div>
   </div>
@@ -41,33 +37,15 @@
             <%= @collection.remain_amount_i18n %>
           </p>
           <p>テイスト1：
-            <% if @collection.tastes_rich == true %>
-              <span class="text-success">濃醇</span>
-            <% else %>
-              <span class="text-success">淡麗</span>
-            <% end %>
+            <span class="text-success"><%= @collection.tastes_rich_i18n %></span>
           </p>
           <p>テイスト2：
-            <% if @collection.tastes_sweet == true %>
-              <span class="text-success">甘口</span>
-            <% else %>
-              <span class="text-success">辛口</span>
-            <% end %>
+            <span class="text-success"><%= @collection.tastes_sweet_i18n %></span>
           </p>
           <p>フレーバー：
-            <% if @collection.is_aromatic == true %>
-              <span class="text-success">フルーティ</span>
-            <% else %>
-              <span class="text-success">スッキリ</span>
-            <% end %>
+            <span class="text-success"><%= @collection.is_aromatic_i18n %></span>
           </p>
           <p>記録日：<%= @collection.created_at.strftime('%Y/%m/%d') %></p>
-          <p>
-            <% if @collection.user == current_user %>
-              <%= link_to "編集", edit_collection_path(@collection.id) %>
-              <%= link_to "削除", collection_path(@collection.id), method: :delete %>
-            <% end %>
-          </p>
         </div>
       </div>
       <!-- comments block -->
@@ -79,9 +57,7 @@
           <span><%= image_tag collection_comment.user.get_profile_image(50,50) %><%= collection_comment.user.user_name %></span><br>
           <%= collection_comment.comment %><br>
           <%= collection_comment.created_at.strftime('%Y/%m/%d') %>
-          <% if collection_comment.user == current_user %>
-            <%= link_to "削除", collection_collection_comment_path(collection_comment.collection, collection_comment), method: :delete %>
-          <% end %>
+          <%= link_to "削除", admin_collection_collection_comment_path(collection_comment.collection, collection_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
         <% end %>
       </div>
       <!-- comments block end -->

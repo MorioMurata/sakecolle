@@ -17,6 +17,9 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: "Relationship", foreign_key: :follower_id
   has_many :followers, through: :passive_relationships, source: :following
 
+  validates :user_name, presence:true, length: { maximum: 20 }, uniqueness: true
+  validates :introduction, length: { maximum: 50 }
+
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.png')
@@ -28,7 +31,7 @@ class User < ApplicationRecord
   def calculate_capacity
     # binding.irb
     # byebug
-    stocking_capacity = stocking_capacity.nil? ? 0 : stocking_capacity
+    stocking_capacity = self.stocking_capacity.nil? ? 0 : self.stocking_capacity
     stocking_capacity * 0.8
   end
 

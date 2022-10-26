@@ -1,5 +1,5 @@
 class Admin::CollectionsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_admin!
 
   def show
     @collection = Collection.find(params[:id])

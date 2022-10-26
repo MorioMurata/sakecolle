@@ -23,7 +23,7 @@ module ApplicationHelper
     users_capacity = user.calculate_capacity
     #完飲前の在庫数が上限の８割に達していたらアラート表示。
     if quantity_of_collections >= users_capacity
-      "ストック上限の８割に達しました！"
+      "在庫上限の８割を超えています！"
     end
   end
 end

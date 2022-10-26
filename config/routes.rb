@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'top' => 'homes#top', as: 'top'
     resources :users, only: [:index, :show, :destroy]
-    resources :collections, except: [:index]
+    resources :collections, except: [:index] do
+      resources :collection_comments, only: [:index, :destroy]
+    end
   end
 
 
@@ -39,8 +41,8 @@ Rails.application.routes.draw do
       get :followers, on: :member
       get :favorites, on: :member
     end
-    resources :collections, except: [:index] do
-      resources :collection_comments, only: [:create, :destroy]
+    resources :collections do
+      resources :collection_comments, only: [:index, :create, :destroy]
       resource :favorites, only: [:create, :destroy]
     end
 

@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="col-md-3 dead">
-              <%= link_to "アカウントを削除する", admin_user_path(user), method: :delete, class: "number" %>
+              <%= link_to "アカウントを削除する", admin_user_path(user), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
             </div>
           </div>
         </div>

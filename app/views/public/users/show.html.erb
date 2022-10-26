@@ -8,16 +8,18 @@
       <%= render 'layouts/navbar' %>
     </div>
     <div class="col-lg-10">
-      <!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
-      <% if @collection.count >= 1 %>
-        <%= over_eighty_percent_of_stock_capacity(@collections, @user) %><br>
-      <% end %><br>
-      <%= link_to user_path do %>
-        <button type="button" class="btn btn-secondary">collection</button>
-      <% end %>
-      <%= link_to user_path(past: true) do %>
-        <button type="button" class="btn btn-secondary">past collection</button>
-      <% end %><br>
+      <div>
+        <%= link_to user_path do %>
+          <button type="button" class="btn btn-secondary">collection</button>
+        <% end %>
+        <%= link_to user_path(past: true) do %>
+          <button type="button" class="btn btn-secondary">past collection</button>
+        <% end %>
+        <!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
+        <% if @collection.count >= 1 && @user == current_user %>
+          <%= over_eighty_percent_of_stock_capacity(@collections, @user) %>
+        <% end %>
+      </div>
       <% @collections.each do |collection| %>
       <div class="card mb-2">
         <div class="row no-gutters">
@@ -35,22 +37,10 @@
                   <%= collection.sake_name %>
                 <% end %>
               </h5>
-              <p class="card-text">
-                <% if collection.tastes_rich == true %>
-                  <span class="text-success">濃醇</span>
-                <% else %>
-                  <span class="text-success">淡麗</span>
-                <% end %>
-                <% if collection.tastes_sweet == true %>
-                  <span class="text-success">甘口</span>
-                <% else %>
-                  <span class="text-success">辛口</span>
-                <% end %>
-                <% if collection.is_aromatic == true %>
-                  <span class="text-success">フルーティ</span>
-                <% else %>
-                  <span class="text-success">スッキリ</span>
-                <% end %>
+              <p class="card-text text-success">
+                <%= collection.tastes_rich_i18n %>
+                <%= collection.tastes_sweet_i18n %>
+                <%= collection.is_aromatic_i18n %>
               </p>
               <div id="favorites-<%= collection.id %>" class="card-text">
                 <%= render 'public/favorites/favorite_btn', collection: collection %>

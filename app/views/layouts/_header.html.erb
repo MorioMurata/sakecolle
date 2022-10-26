@@ -8,7 +8,9 @@
         <%= image_tag user.get_profile_image(100,100), class: "profimg" %>
       </div>
       <div class="col-md-auto">
-        <%= user.user_name %><br>
+        <div>
+          <%= user.user_name %>
+        </div>
         <div class="number">
         <%=link_to follows_user_path(user.id), class: "number" do %>
           <%= user.followings.count %>フォロー

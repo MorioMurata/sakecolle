@@ -2,17 +2,26 @@
   <%= link_to user_path(current_user), class: "nav" do %>
     <i class="fa-solid fa-house-user"></i>
   <% end %>
+  <%= link_to "Home", user_path(current_user), class: "nav2 ml-3" %>
+
   <%= link_to favorites_user_path(current_user), class: "nav nav1" do %>
-    <i class="fa-solid fa-bookmark"></i>
+    <i class="fa-solid fa-champagne-glasses"></i>
   <% end %>
-  <%= link_to users_path, class: "nav nav2" do %>
-    <i class="fa-solid fa-user-group"></i><br>
+  <%= link_to "Cheers", favorites_user_path(current_user), class: "nav2 ml-3" %>
+
+  <%= link_to users_path, class: "nav nav1" do %>
+    <i class="fa-solid fa-user-group"></i>
   <% end %>
-  <%= link_to new_collection_path, class: "nav nav2" do %>
+  <%= link_to "Sake Friends", users_path, class: "nav2" %>
+
+  <%= link_to new_collection_path, class: "nav nav1" do %>
     <i class="fa-solid fa-circle-plus"></i>
   <% end %>
-  <%= link_to destroy_user_session_path, method: :delete, class: "nav nav2" do %>
+  <%= link_to "New Sake", new_collection_path, class: "nav2 ml-1" %>
+
+  <%= link_to destroy_user_session_path, method: :delete, class: "nav nav1" do %>
     <i class="fa-solid fa-right-from-bracket"></i>
   <% end %>
+  <%= link_to "Log out", destroy_user_session_path, class: "nav2 ml-2" %>
 </navbar>
 

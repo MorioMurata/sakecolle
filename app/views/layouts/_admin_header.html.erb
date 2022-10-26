@@ -1,6 +1,10 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
+      <div class="navbar-brand">
+        <%= image_tag 'SakeColle.png', :size => '150x150' %>
+        <span class="nav3 ml-5">Admin Page</span>
+      </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -14,6 +18,11 @@
           <li>
             <%= link_to admin_users_path, class: "nav3" do %>
               <i class="fa-solid fa-user-group">Users</i>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to destroy_user_session_path, method: :delete, class: "nav3" do %>
+              <i class="fa-solid fa-right-from-bracket">Logout</i>
             <% end %>
           </li>
         </ul>

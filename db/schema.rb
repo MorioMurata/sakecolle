@@ -64,9 +64,9 @@ ActiveRecord::Schema.define(version: 2022_10_15_063556) do
     t.integer "user_id", null: false
     t.string "sake_name", null: false
     t.integer "remain_amount", default: 0
-    t.boolean "tastes_rich", default: true
-    t.boolean "tastes_sweet", default: true
-    t.boolean "is_aromatic", default: true
+    t.integer "tastes_rich", default: 0
+    t.integer "tastes_sweet", default: 0
+    t.integer "is_aromatic", default: 0
     t.datetime "open_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

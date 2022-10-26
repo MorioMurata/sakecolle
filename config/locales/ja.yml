@@ -7,3 +7,42 @@ ja:
         percent_50: "50%"
         percent_75: "75%"
         finish: "完飲"
+
+      tastes_rich:
+        unselected: ""
+        strong: "濃醇"
+        light: "淡麗"
+
+      tastes_sweet:
+        unpicked: ""
+        sweet: "甘口"
+        dry: "辛口"
+
+      is_aromatic:
+        unchoosed: ""
+        aromatic: "フルーティ"
+        not_aromatic: "スッキリ"
+
+  activerecord:
+    errors:
+      models:
+        collection:
+          attributes:
+            sake_name:
+              blank: "が空欄です。"
+              too_long: "が長すぎます。（５０字以内）"
+        collection_comment:
+          attributes:
+            comment:
+              blank: "に文字を入力してください。"
+              too_long: "が長すぎます。（１００字以内）"
+
+    models:
+      collection: "お酒"
+      collection_comment: "コメント"
+    attributes:
+      collection:
+        sake_name: "お酒の名前"
+      collection_comment:
+        comment: "コメント"
+

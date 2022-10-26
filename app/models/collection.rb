@@ -4,9 +4,13 @@ class Collection < ApplicationRecord
   has_many :collection_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+  validates :sake_name,presence:true, length: { maximum: 50 }
 
   #酒残量ステータス用enum。詳細はconfig/locales/ja.ymlへ
   enum remain_amount: { unopened: 0, percent_25: 1, percent_50: 2, percent_75: 3, finish: 4 }
+  enum tastes_rich: { unselected: 0, strong: 1, light: 2 }
+  enum tastes_sweet: { unpicked: 0, sweet: 1, dry: 2 }
+  enum is_aromatic: { unchoosed: 0, aromatic: 1, not_aromatic: 2 }
 
   def get_sake_image(width, height)
     unless sake_image.attached?
@@ -19,9 +23,9 @@ class Collection < ApplicationRecord
   def  after_open_time
      DateTime.now.to_date  - open_date.to_date
   end
-  
+
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
   end
-  
+
 end

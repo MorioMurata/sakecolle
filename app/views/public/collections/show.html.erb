@@ -16,47 +16,45 @@
           <%= image_tag @collection.get_sake_image(200,200) %>
         </div>
         <div class="col-8">
-          <p>銘柄名：<%= @collection.sake_name %></p>
+          <p class="text-break">銘柄名：<%= @collection.sake_name %></p>
           <p>開栓状況：
             <%= image_tag("#{@collection.remain_amount}.png", class: "amount_index") %>
             <%= @collection.remain_amount_i18n %>
           </p>
           <p>テイスト1：
-            <% if @collection.tastes_rich == true %>
-              <span class="text-success">濃醇</span>
-            <% else %>
-              <span class="text-success">淡麗</span>
-            <% end %>
+            <span class="text-success"><%= @collection.tastes_rich_i18n %></span>
           </p>
           <p>テイスト2：
-            <% if @collection.tastes_sweet == true %>
-              <span class="text-success">甘口</span>
-            <% else %>
-              <span class="text-success">辛口</span>
-            <% end %>
+            <span class="text-success"><%= @collection.tastes_sweet_i18n %></span>
           </p>
           <p>フレーバー：
-            <% if @collection.is_aromatic == true %>
-              <span class="text-success">フルーティ</span>
-            <% else %>
-              <span class="text-success">スッキリ</span>
-            <% end %>
+            <span class="text-success"><%= @collection.is_aromatic_i18n %></span>
           </p>
           <p>記録日：<%= @collection.created_at.strftime('%Y/%m/%d') %></p>
           <p>
             <% if @collection.user == current_user %>
-              <%= link_to "編集", edit_collection_path(@collection.id) %>
-              <%= link_to "削除", collection_path(@collection.id), method: :delete %>
+              <%= link_to "編集", edit_collection_path(@collection.id), class: "btn btn-sm btn-success" %>
+              <%= link_to "削除", collection_path(@collection.id), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
             <% end %>
           </p>
         </div>
       </div>
       <!-- comments block -->
         <div class="offset-1">
+          <% unless @comment.nil? %>
+            <% if @comment.errors.any? %>
+              <%= @comment.errors.count %>件のエラーが発生しました
+              <ul>
+                <% @comment.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          <% end %>
           <%= form_with model: [@collection, @collection_comment] do |f| %>
             <div class="row">
               <div class="col-8 comment">
-                <%= f.text_area :comment, placeholder: "コメントをここに", class: "form-control", rows: "3", width: "100%" %>
+                <%= f.text_area :comment, placeholder: "コメントをここに（１００文字以内）", class: "form-control", rows: "3", width: "100%" %>
                 <div class="text-right">
                   <%= f.submit "送信する" %>
                 </div>
@@ -72,10 +70,12 @@
             <%= collection_comment.user.user_name %>
             <%= collection_comment.created_at.strftime('%Y/%m/%d') %>
             <% if collection_comment.user == current_user %>
-              <%= link_to "削除", collection_collection_comment_path(collection_comment.collection, collection_comment), method: :delete %>
+              <%= link_to "削除", collection_collection_comment_path(collection_comment.collection, collection_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
             <% end %>
           </div>
-          <%= collection_comment.comment %><br>
+          <div class="text-break">
+            <%= simple_format(collection_comment.comment) %>
+          </div>
         <% end %>
       </div>
       <!-- comments block end -->

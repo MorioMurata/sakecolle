@@ -1,18 +1,29 @@
-<%= render 'layouts/header', user: @user, collection: @collection %>
+<%= render 'layouts/header', user: @user, collection: @collections %>
 <%= render 'layouts/introduction', user: @user %>
 <div class="container">
   <div class="row">
     <div class="col-lg-2">
       <%= render 'layouts/navbar' %>
     </div>
-    <%= form_with model: @new_collection do |f| %>
     <div class="col-lg-8 offset-2">
-      <h4>画像</h4>
-      <%= f.file_field :sake_image, accept: "image/jpg, image/jpeg, image/png" %>
-      <h4>銘柄名</h4>
-      <%= f.text_field :sake_name, size: "50" %>
-      <%= f.submit '投稿' %>
+      <% unless @collection.nil? %>
+        <% if @collection.errors.any? %>
+          <%= @collection.errors.count %>件のエラーが発生しました
+          <ul>
+            <% @collection.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      <% end %>
+      <h1 class="mb-5">新規投稿</h1>
+      <%= form_with model: @new_collection do |f| %>
+        <h4>画像（200x200推奨）</h4>
+        <%= f.file_field :sake_image, accept: "image/jpg, image/jpeg, image/png" %>
+        <h4>銘柄名（50文字以内）</h4>
+        <%= f.text_field :sake_name, size: "50" %>
+        <%= f.submit '投稿' %>
+      <% end %>
     </div>
-    <% end %>
   </div>
 </div>

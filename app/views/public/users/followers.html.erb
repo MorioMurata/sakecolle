@@ -8,6 +8,10 @@
       <%= render 'layouts/navbar' %>
     </div>
     <div class="col-lg-10">
+      <h1 class="pb-5">フォロワー</h1>
+      <% if @users.empty? %>
+        <p>まだフォロワーはいません</p>
+      <% end %>
       <% @users.each do |user| %>
         <div class="card mb-3">
           <div class="row no-gutters">
@@ -48,19 +52,3 @@
     </div>
   </div>
 </div>
-
-
-<h1>Users#followers</h1>
-<p>Find me in app/views/users/followers.html.erb</p>
-
-<% @users.each do |user| %>
-  <hr>
-
-    <% if current_user != user %>
-        <% if user.followed_by?(current_user) %>
-            <p><%=link_to "フォロー済み", user_relationships_path(user.id), method: :delete %></p>
-        <% else %>
-            <p><%=link_to "フォローする", user_relationships_path(user.id), method: :post %></p>
-        <% end %>
-    <% end %>
-<% end %>

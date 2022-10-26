@@ -10,11 +10,11 @@
       <div>
         <h1></h1>
       </diV>
-      <h4>画像</h4>
+      <h4>画像（200x200推奨）</h4>
       <div class="mb-4">
         <%= f.file_field :sake_image, accept: "image/jpg, image/jpeg, image/png" %>
       </div>
-      <h4>銘柄名</h4>
+      <h4>銘柄名（50文字以内）</h4>
       <div class="mb-4">
         <%= f.text_field :sake_name, size: "50" %>
       </div>
@@ -24,23 +24,23 @@
       </div>
       <h4>味わい１</h4>
       <div class="mb-4">
-        <%= f.radio_button :tastes_rich, :true %>
+        <%= f.radio_button :tastes_rich, 1, checked: @edit_collection.tastes_rich == "strong" ? true : false %>
         <%= f.label :tastes_rich, "濃醇" %>
-        <%= f.radio_button :tastes_rich, :false %>
+        <%= f.radio_button :tastes_rich, 2, checked: @edit_collection.tastes_rich == "light" ? true : false %>
         <%= f.label :tastes_rich, "淡麗" %>
       </div>
       <h4>味わい２</h4>
       <div class="mb-4">
-        <%= f.radio_button :tastes_sweet, :true %>
+        <%= f.radio_button :tastes_sweet, 1, checked: @edit_collection.tastes_sweet == "sweet" ? true : false %>
         <%= f.label :tastes_sweet, "甘口" %>
-        <%= f.radio_button :tastes_sweet, :false %>
+        <%= f.radio_button :tastes_sweet, 2, checked: @edit_collection.tastes_sweet == "dry" ? true : false %>
         <%= f.label :tastes_sweet, "辛口" %>
       </div>
       <h4>フレーバー</h4>
       <div class="mb-4">
-        <%= f.radio_button :is_aromatic, :true %>
+        <%= f.radio_button :is_aromatic, 1, checked: @edit_collection.is_aromatic == "aromatic" ? true : false %>
         <%= f.label :is_aromatic, "フルーティ" %>
-        <%= f.radio_button :is_aromatic, :false %>
+        <%= f.radio_button :is_aromatic, 2, checked: @edit_collection.is_aromatic == "not_aromatic" ? true : false %>
         <%= f.label :is_aromatic, "スッキリ" %>
       </div>
       <%= f.submit '投稿' %>
