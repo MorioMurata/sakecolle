@@ -4,14 +4,19 @@ class Public::UsersController < ApplicationController
   before_action :ensure_guest_user, only: [:edit]
 
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
     @collection = @user.collections
   end
 
   def update
-    @user = User.find(params[:id])
-    @user.update(user_params)
-    redirect_to user_path(@user.id)
+    user = current_user
+    if user.update(user_params)
+      redirect_to user_path(user.id)
+    else
+      @user = user
+      @collection = user.collections
+      render :edit
+    end
   end
 
   def index

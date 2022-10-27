@@ -19,7 +19,11 @@
           <%= user.followers.count %>フォロワー
         <% end %><br>
         </div>
-        <b><%= collection.where.not(remain_amount: "finish").count %></b> / <%= user.stocking_capacity %> collections
+        <% if user.email != "guest@example.com" %>
+          <b><%= collection.where.not(remain_amount: "finish").count %></b> / <%= user.stocking_capacity %> collections
+        <% else %>
+          <b><%= collection.where.not(remain_amount: "finish").count %></b>collections
+        <% end %>
       </div>
       <div class="col-lg-2">
         <div class="gear">

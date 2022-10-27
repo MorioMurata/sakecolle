@@ -14,7 +14,7 @@
         <%= @user.followings.count %>フォロー
         <%= @user.followers.count %>フォロワー
         </div>
-        <b><%= @collection.where.not(remain_amount: "finish").count %></b> / <%= @user.stocking_capacity %> collections
+        <b><%= @collection.where.not(remain_amount: "finish").count %></b>/ <%= @user.stocking_capacity %>collections
       </div>
       <div class="col-lg-2 pt-4">
         <%= link_to "アカウントを削除する", admin_user_path(@user), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
@@ -22,14 +22,13 @@
     </div>
   </div>
 </header>
-
 <div class="container">
   <div class="row">
     <div class="col-lg-10 offset-2">
       <!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
       <% if @collection.count >= 1 %>
-        <%= over_eighty_percent_of_stock_capacity(@collections, @user) %><br>
-      <% end %><br>
+        <%= over_eighty_percent_of_stock_capacity(@collections, @user) %>
+      <% end %>
       <%= link_to admin_user_path do %>
         <button type="button" class="btn btn-secondary">collection</button>
       <% end %>

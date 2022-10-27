@@ -26,6 +26,16 @@ ja:
   activerecord:
     errors:
       models:
+        user:
+          attributes:
+            email:
+              blank: "が空欄です。"
+            password:
+              blank: "が空欄です。"
+              too_short: "が短過ぎます。（６字以上）"
+            user_name:
+              blank: "が空欄です。"
+              too_long: "が長過ぎます。（５０字以内）"
         collection:
           attributes:
             sake_name:
@@ -38,6 +48,7 @@ ja:
               too_long: "が長すぎます。（１００字以内）"
 
     models:
+      user: "ユーザー"
       collection: "お酒"
       collection_comment: "コメント"
     attributes:
@@ -45,4 +56,6 @@ ja:
         sake_name: "お酒の名前"
       collection_comment:
         comment: "コメント"
+      user:
+        user_name: "アカウント名"
 

@@ -5,6 +5,16 @@
     <div class="col-lg-2">
       <%= render 'layouts/navbar' %>
     </div>
+    <% unless @edit_collection.nil? %>
+      <% if @edit_collection.errors.any? %>
+        <%= @edit_collection.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @edit_collection.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
     <%= form_with model: @edit_collection do |f| %>
     <div class="col-lg-8 offset-2">
       <div>
@@ -43,7 +53,7 @@
         <%= f.radio_button :is_aromatic, 2, checked: @edit_collection.is_aromatic == "not_aromatic" ? true : false %>
         <%= f.label :is_aromatic, "スッキリ" %>
       </div>
-      <%= f.submit '投稿' %>
+      <%= f.submit '変更を保存' %>
     </div>
     <% end %>
   </div>

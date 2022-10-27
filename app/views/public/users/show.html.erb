@@ -15,11 +15,16 @@
         <%= link_to user_path(past: true) do %>
           <button type="button" class="btn btn-secondary">past collection</button>
         <% end %>
-        <!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
-        <% if @collection.count >= 1 && @user == current_user %>
-          <%= over_eighty_percent_of_stock_capacity(@collections, @user) %>
+        <% if @user.email != "guest@example.com" %>
+          <!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
+          <% if @collection.count >= 1 && @user == current_user %>
+            <%= over_eighty_percent_of_stock_capacity(@collections, @user) %>
+          <% end %>
         <% end %>
       </div>
+      <% if @collections.empty? %>
+        <p>まだ投稿はありません</p>
+      <% end %>
       <% @collections.each do |collection| %>
       <div class="card mb-2">
         <div class="row no-gutters">

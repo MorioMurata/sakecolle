@@ -61,8 +61,14 @@ class Public::CollectionsController < ApplicationController
     post_params[:tastes_rich] = post_params[:tastes_rich]&.to_i
     post_params[:tastes_sweet] = post_params[:tastes_sweet]&.to_i
     post_params[:is_aromatic] = post_params[:is_aromatic]&.to_i
-    collection.update!(post_params)
-    redirect_to user_path(collection.user_id)
+    if collection.update(post_params)
+      redirect_to user_path(collection.user_id)
+    else
+      @user = current_user
+      @collection = @user.collections
+      @edit_collection = collection
+      render :edit
+    end
   end
 
   private
