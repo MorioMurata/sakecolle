@@ -37,8 +37,8 @@
 - テーブル定義書
 - https://docs.google.com/spreadsheets/d/1ZFW3AhkhQjd5JS8vT1oNdeQuUxR-4aVW/edit#gid=1460457709
 - ER図
-- <img width="620" alt="スクリーンショット 2022-10-29 14 41 52" src="https://user-images.githubusercontent.com/109211405/198816057-cf03bf43-2b7c-4e84-95e8-dee704c03a14.png">
-- 
+<img width="620" alt="スクリーンショット 2022-10-29 14 41 52" src="https://user-images.githubusercontent.com/109211405/198816057-cf03bf43-2b7c-4e84-95e8-dee704c03a14.png">
+
 
 ## 開発環境
 - OS：Linux(CentOS)
@@ -46,7 +46,9 @@
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
 - IDE：Cloud9
+- ruby 3.1.2
+- Rails 6.1.7
 
 ## 使用素材
-- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
-- 使用しない場合は、使用素材の項目をREADMEから削除してください。
+- ロゴ画像 => Canva
+URL => https://www.canva.com/ja_jp/create/logos/
