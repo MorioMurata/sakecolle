@@ -9,10 +9,10 @@
   <% end %>
   <%= link_to "Cheers", favorites_user_path(current_user), class: "nav2 ml-3" %>
 
-  <%= link_to users_path, class: "nav nav1" do %>
+  <%= link_to users_path, class: "nav nav1",data: {"turbolinks"=>false} do %>
     <i class="fa-solid fa-user-group"></i>
   <% end %>
-  <%= link_to "Sake Friends", users_path, class: "nav2" %>
+  <%= link_to "Sake Friends", users_path, class: "nav2",data: {"turbolinks"=>false} %>
 
   <%= link_to new_collection_path, class: "nav nav1" do %>
     <i class="fa-solid fa-circle-plus"></i>
