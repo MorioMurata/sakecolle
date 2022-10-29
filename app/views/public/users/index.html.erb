@@ -35,11 +35,14 @@
               </div>
             </div>
             <div class="col-md-3">
+              <div class="loading">
+                 <%= image_tag "loading.gif" %>
+              </div>
               <% if current_user != user %>
                 <% if user.followed_by?(current_user) %>
-                  <p><%=link_to "フォロー中", user_relationships_path(user.id), method: :delete %></p>
+                  <p style="margin-top: 50px;"><%=link_to "フォロー中", user_relationships_path(user.id), method: :delete, class: "btn-follow" %></p>
                 <% else %>
-                  <p><%=link_to "フォローする", user_relationships_path(user.id), method: :post %></p>
+                  <p><%=link_to "フォローする", user_relationships_path(user.id), method: :post, class: "btn-follow" %></p>
                 <% end %>
               <% end %>
             </div>

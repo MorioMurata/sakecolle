@@ -17,3 +17,13 @@ import '@fortawesome/fontawesome-free/js/all'
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+
+
+$(function() {
+    $('.btn-follow').on('click', function() {
+        $('.btn-follow').hide();
+        $('.loading').show();
+
+    });
+});

@@ -72,3 +72,11 @@ header{
 .fa-comment-dots{
   font-size: 20px;
 }
+
+.loading {
+    display: none;
+}
+
+.btn-follow{
+  margin-top: 20px;
+}

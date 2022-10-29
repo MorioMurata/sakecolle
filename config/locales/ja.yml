@@ -30,12 +30,15 @@ ja:
           attributes:
             email:
               blank: "が空欄です。"
+              taken: "はすでに使用されています。"
             password:
               blank: "が空欄です。"
               too_short: "が短過ぎます。（６字以上）"
+            password_confirmation:
+              confirmation: "に入力してください。"
             user_name:
               blank: "が空欄です。"
-              too_long: "が長過ぎます。（５０字以内）"
+              too_long: "が長過ぎます。（２０字以内）"
         collection:
           attributes:
             sake_name:

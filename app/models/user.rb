@@ -9,7 +9,6 @@ class User < ApplicationRecord
   has_many :collection_comments, dependent: :destroy
 
   has_many :favorites, dependent: :destroy
-  # has_many :favorite_collections, through: :favorites, source: :collection
 
   has_many :active_relationships, class_name: "Relationship", foreign_key: :following_id
   has_many :followings, through: :active_relationships, source: :follower
@@ -29,8 +28,6 @@ class User < ApplicationRecord
   end
 
   def calculate_capacity
-    # binding.irb
-    # byebug
     stocking_capacity = self.stocking_capacity.nil? ? 0 : self.stocking_capacity
     stocking_capacity * 0.8
   end
@@ -49,9 +46,5 @@ class User < ApplicationRecord
       user.user_name = "guestuser"
     end
   end
-
-  # def hogehoge?(pass)
-  #   valid_password?(pass) && !is_active
-  # end
 
 end
