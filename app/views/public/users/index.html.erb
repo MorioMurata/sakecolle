@@ -14,7 +14,7 @@
           <div class="row no-gutters">
             <div class="col-md-3">
               <div align="center">
-                <%= link_to user_path(user) do %>
+                <%= link_to user_path(user),data: {"turbolinks"=>false} do %>
                   <%= image_tag user.get_profile_image(150,150), class: "profimg" %>
                 <% end %>
               </div>
@@ -22,7 +22,7 @@
             <div class="col-md-5">
               <div class="card-body">
                 <h5 class="card-title">
-                  <%= link_to user_path(user) do %>
+                  <%= link_to user_path(user),data: {"turbolinks"=>false} do %>
                     <%= user.user_name %>
                   <% end %>
                 </h5>
@@ -35,14 +35,14 @@
               </div>
             </div>
             <div class="col-md-3">
-              <div class="loading">
+              <div class="loading" style="margin-top: 50px;">
                  <%= image_tag "loading.gif" %>
               </div>
               <% if current_user != user %>
                 <% if user.followed_by?(current_user) %>
                   <p style="margin-top: 50px;"><%=link_to "フォロー中", user_relationships_path(user.id), method: :delete, class: "btn-follow" %></p>
                 <% else %>
-                  <p><%=link_to "フォローする", user_relationships_path(user.id), method: :post, class: "btn-follow" %></p>
+                  <p style="margin-top: 50px;"><%=link_to "フォローする", user_relationships_path(user.id), method: :post, class: "btn-follow" %></p>
                 <% end %>
               <% end %>
             </div>
