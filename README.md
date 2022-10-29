@@ -35,7 +35,7 @@
 
 ## 設計書
 - テーブル定義書
-- https://docs.google.com/spreadsheets/d/1ZFW3AhkhQjd5JS8vT1oNdeQuUxR-4aVW/edit#gid=1460457709
+https://docs.google.com/spreadsheets/d/1ZFW3AhkhQjd5JS8vT1oNdeQuUxR-4aVW/edit#gid=1460457709
 - ER図
 <img width="620" alt="スクリーンショット 2022-10-29 14 41 52" src="https://user-images.githubusercontent.com/109211405/198816057-cf03bf43-2b7c-4e84-95e8-dee704c03a14.png">
 
