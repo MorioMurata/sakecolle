@@ -12,6 +12,10 @@ class Public::CollectionsController < ApplicationController
     @collection = Collection.new(collection_params)
     @collection.user_id = current_user.id
     if @collection.save
+      tags = Vision.get_image_data(@collection.sake_image)
+      tags.each do |tag|
+        @collection.tags.create(name: tag)
+      end
       redirect_to user_path(@collection.user_id)
     else
       @new_collection = Collection.new

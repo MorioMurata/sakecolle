@@ -14,6 +14,9 @@
       <div class="row">
         <div class="col-4">
           <%= image_tag @collection.get_sake_image(200,200) %>
+          <% @collection.tags.each do |tag| %>
+            <%= tag.name %>
+          <% end %>
         </div>
         <div class="col-8">
           <p class="text-break">銘柄名：<%= @collection.sake_name %></p>

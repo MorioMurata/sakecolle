@@ -3,6 +3,7 @@ class Collection < ApplicationRecord
   belongs_to :user
   has_many :collection_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :tags, dependent: :destroy
 
   validates :sake_name,presence:true, length: { maximum: 50 }
 
