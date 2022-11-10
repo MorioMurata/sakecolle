@@ -39,6 +39,8 @@ ja:
             user_name:
               blank: "が空欄です。"
               too_long: "が長過ぎます。（２０字以内）"
+            introduction:
+              too_long: "が長過ぎます"
         collection:
           attributes:
             sake_name:
@@ -61,4 +63,5 @@ ja:
         comment: "コメント"
       user:
         user_name: "アカウント名"
+        introduction: "自己紹介文"
 

@@ -19,9 +19,9 @@
   <% end %>
   <%= link_to "New Sake", new_collection_path, class: "nav2 ml-1" %>
 
-  <%= link_to destroy_user_session_path, method: :delete, class: "nav nav1" do %>
+  <%= link_to destroy_user_session_path, method: :delete, data: { confirm: 'ログアウトしてもよろしいですか？' }, class: "nav nav1" do %>
     <i class="fa-solid fa-right-from-bracket"></i>
   <% end %>
-  <%= link_to "Log out", destroy_user_session_path, class: "nav2 ml-2" %>
+  <%= link_to "Log out", destroy_user_session_path, method: :delete, data: { confirm: 'ログアウトしてもよろしいですか？' }, class: "nav2 ml-2" %>
 </navbar>
 

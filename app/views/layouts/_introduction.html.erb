@@ -2,7 +2,9 @@
   <div class="container">
     <div class=" justify-content-start">
       <div class="col-md-auto offset-md-2">
-        <%= user.introduction %><br>
+        <div class="text-break">
+          <%= simple_format(user.introduction) %>
+        </div>
       </div>
     </div>
   </div>

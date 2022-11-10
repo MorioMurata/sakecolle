@@ -21,7 +21,7 @@
             <% end %>
           </li>
           <li>
-            <%= link_to destroy_user_session_path, method: :delete, class: "nav3" do %>
+            <%= link_to destroy_user_session_path, method: :delete, data: { confirm: 'ログアウトしてもよろしいですか？' }, class: "nav3" do %>
               <i class="fa-solid fa-right-from-bracket">Logout</i>
             <% end %>
           </li>
