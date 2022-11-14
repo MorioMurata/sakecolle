@@ -95,3 +95,25 @@ header{
   vertical-align: baseline;
   border-radius: .25em;
 }
+
+.pagination>li>a {
+  border: none;
+  color: #696969;
+}
+
+.pagination>.active>a {
+  background: #93c9ff;
+  border-radius: 15px;
+}
+
+.pagination>li>a:hover {
+  border-radius: 15px;
+}
+
+.commentbox {
+  width: 550px;                /* 横幅を200pxに指定*/
+  height: 200px;               /* 横幅を200pxに指定 */
+  padding: 20px;
+  border: 1px solid #000;      /* わかりやすくボーダーを引く */
+  overflow-y: scroll;          /* 縦方向にスクロール可能にする */
+}

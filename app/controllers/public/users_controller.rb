@@ -23,13 +23,13 @@ class Public::UsersController < ApplicationController
     @user = current_user
     @users = User.all
     #ユーザーの一覧に自分を除く全ユーザーを表示させる
-    @user_index = @users.where.not(id: current_user.id)
+    @user_index = User.where.not(id: current_user.id).where(is_deleted: false).page(params[:page]).per(4)
     @collection = @user.collections
   end
 
   def show
     @user = User.find(params[:id])
-    @collection = @user.collections
+    @collection = @user.collections.page(params[:page]).per(5)
     #past collectionが選択された(=URLに:pastがある)時
     if params[:past].present?
     #残量ステータスが"完飲"の投稿を呼び出し(.finishはenumのカラム名)
@@ -67,7 +67,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @collection = @user.collections
     favorites = Favorite.where(user_id: @user.id).pluck(:collection_id)
-    @favorite_collections = Collection.find(favorites)
+    @favorite_collections = Collection.where(id: favorites).page(params[:page]).per(5)
   end
 
   private

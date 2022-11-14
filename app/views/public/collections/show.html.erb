@@ -71,6 +71,7 @@
         <div class="row">
           <i class="fa-regular fa-comment-dots"></i><%= @collection.collection_comments.count %>
         </div>
+        <div class="commentbox">
         <% @collection.collection_comments.each do |collection_comment| %>
           <div>
             <%= image_tag collection_comment.user.get_profile_image(50,50) %>
@@ -88,6 +89,7 @@
             <%= simple_format(collection_comment.comment) %>
           </div>
         <% end %>
+      </div>
       </div>
       <!-- comments block end -->
     </div>
