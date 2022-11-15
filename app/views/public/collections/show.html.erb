@@ -72,24 +72,24 @@
           <i class="fa-regular fa-comment-dots"></i><%= @collection.collection_comments.count %>
         </div>
         <div class="commentbox">
-        <% @collection.collection_comments.each do |collection_comment| %>
-          <div>
-            <%= image_tag collection_comment.user.get_profile_image(50,50) %>
-            <%= collection_comment.user.user_name %>
-            <span class="ml-5">
-              <%= collection_comment.created_at.strftime('%Y/%m/%d') %>
-            </span>
-            <span class="ml-5">
-              <% if collection_comment.user == current_user %>
-                <%= link_to "削除", collection_collection_comment_path(collection_comment.collection, collection_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
-              <% end %>
-            </span>
-          </div>
-          <div class="text-break">
-            <%= simple_format(collection_comment.comment) %>
-          </div>
-        <% end %>
-      </div>
+          <% @collection.collection_comments.each do |collection_comment| %>
+            <div>
+              <%= image_tag collection_comment.user.get_profile_image(50,50) %>
+              <%= collection_comment.user.user_name %>
+              <span class="ml-5">
+                <%= collection_comment.created_at.strftime('%Y/%m/%d') %>
+              </span>
+              <span class="ml-5">
+                <% if collection_comment.user == current_user %>
+                  <%= link_to "削除", collection_collection_comment_path(collection_comment.collection, collection_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
+                <% end %>
+              </span>
+            </div>
+            <div class="text-break">
+              <%= simple_format(collection_comment.comment) %>
+            </div>
+          <% end %>
+        </div>
       </div>
       <!-- comments block end -->
     </div>

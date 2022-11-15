@@ -29,16 +29,22 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @collection = @user.collections.page(params[:page]).per(5)
+    @collection = @user.collections
+    @collections = @collection.where.not(remain_amount: 'finish').page(params[:page]).per(5)
+    @past_collections = @collection.finish.page(params[:post_page]).per(3)
+      respond_to do |format|
+        format.html
+        format.js
+      end
     #past collectionが選択された(=URLに:pastがある)時
-    if params[:past].present?
+    #if params[:type] == "past" 
     #残量ステータスが"完飲"の投稿を呼び出し(.finishはenumのカラム名)
-      @collections = @collection.finish
+      #@collections = @collection.finish
     #collectionが選択された(=URLに:pastがない)時
-    else
+    #else
     #残量ステータスが"完飲"ではない投稿を呼び出し
-      @collections = @collection.where.not(remain_amount: 'finish')
-    end
+      #@collections = @collection.where.not(remain_amount: 'finish')
+    #end
   end
 
   def follows

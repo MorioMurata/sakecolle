@@ -1,0 +1,51 @@
+<% collections.each do |collection| %>
+      <div class="card mb-2">
+        <div class="row no-gutters">
+          <div class="img col-md-2">
+            <div align="center">
+              <%= link_to collection_path(collection) do %>
+                <%= image_tag collection.get_sake_image(100,100) %>
+              <% end %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= link_to collection_path(collection) do %>
+                  <%= collection.sake_name %>
+                <% end %>
+              </h5>
+              <p class="card-text text-success">
+                <%= collection.tastes_rich_i18n %>
+                <%= collection.tastes_sweet_i18n %>
+                <%= collection.is_aromatic_i18n %>
+              </p>
+              <div id="favorites-<%= collection.id %>" class="card-text">
+                <%= render 'public/favorites/favorite_btn', collection: collection %>
+                <%#= link_to "#{collection.collection_comments.count} コメント", collection_path(collection) %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="bottle">
+              <div align="center">
+                <%= image_tag("#{collection.remain_amount}.png", class: "amount_index") %>
+                <%= collection.remain_amount_i18n %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="time_elapse">
+              <div align="center">
+                <!--開栓日時カラムが空でない（＝開栓済み）かつ、残量が0（完飲済み）でない時-->
+                <%# if !collection.open_date.nil? && collection.remain_amount != "finish" %>
+                <% unless collection.open_date.nil? || collection.remain_amount == "finish" %>
+                <!--開栓後どれくらい経過しているか表示。how_long_time_elapseメソッドについてはapplication_helper.rb内に定義。-->
+                  <%= how_long_time_elapse(collection) %>
+                <% end %><br>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>

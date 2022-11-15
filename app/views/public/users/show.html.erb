@@ -9,76 +9,40 @@
     </div>
     <div class="col-lg-10">
       <div>
-        <%= link_to user_path do %>
-          <button type="button" class="btn btn-secondary">collection</button>
-        <% end %>
-        <%= link_to user_path(past: true) do %>
-          <button type="button" class="btn btn-secondary">past collection</button>
-        <% end %>
-        <% if @user.email != "guest@example.com" %>
-          <!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
-          <% if @collection.count >= 1 && @user == current_user %>
-            <%= over_eighty_percent_of_stock_capacity(@collections, @user) %>
-          <% end %>
-        <% end %>
-      </div>
-      <% if @collections.empty? %>
-        <p>まだ投稿はありません</p>
-      <% end %>
-      <% @collections.each do |collection| %>
-      <div class="card mb-2">
-        <div class="row no-gutters">
-          <div class="img col-md-2">
-            <div align="center">
-              <%= link_to collection_path(collection) do %>
-                <%= image_tag collection.get_sake_image(100,100) %>
+        <div class="tab-list list-unstyled">
+          <span class="tab tab-left tab-active">
+            collection
+          </span>
+          <span class="tab tab-right">
+            past collaction
+          </span>
+          <span class="alert">
+            <% if @user.email != "guest@example.com" %>
+              <!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
+              <% if @collection.count >= 1 && @user == current_user %>
+                <%= over_eighty_percent_of_stock_capacity(@collections, @user) %>
               <% end %>
+            <% end %>
+          </span>
+        </div>
+        <div class="tabbox-contents">
+          <div class="tabbox box-show" id ="pagenate_collection">
+            <%= render "posted_collection", collections: @collections %>
+            <div class="pagenation center-block">
+              <%= paginate @collections, remote: true %>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="card-body">
-              <h5 class="card-title">
-                <%= link_to collection_path(collection) do %>
-                  <%= collection.sake_name %>
-                <% end %>
-              </h5>
-              <p class="card-text text-success">
-                <%= collection.tastes_rich_i18n %>
-                <%= collection.tastes_sweet_i18n %>
-                <%= collection.is_aromatic_i18n %>
-              </p>
-              <div id="favorites-<%= collection.id %>" class="card-text">
-                <%= render 'public/favorites/favorite_btn', collection: collection %>
-                <%#= link_to "#{collection.collection_comments.count} コメント", collection_path(collection) %>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="bottle">
-              <div align="center">
-                <%= image_tag("#{collection.remain_amount}.png", class: "amount_index") %>
-                <%= collection.remain_amount_i18n %>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="time_elapse">
-              <div align="center">
-                <!--開栓日時カラムが空でない（＝開栓済み）かつ、残量が0（完飲済み）でない時-->
-                <%# if !collection.open_date.nil? && collection.remain_amount != "finish" %>
-                <% unless collection.open_date.nil? || collection.remain_amount == "finish" %>
-                <!--開栓後どれくらい経過しているか表示。how_long_time_elapseメソッドについてはapplication_helper.rb内に定義。-->
-                  <%= how_long_time_elapse(collection) %>
-                <% end %><br>
-              </div>
+          <div class="tabbox" id ="pagenate_past_collection">
+            <%= render "posted_collection", collections: @past_collections %>
+            <div class="pagenation center-block">
+              <%= paginate @past_collections,:param_name =>'post_page', remote: true %>
             </div>
           </div>
         </div>
       </div>
+      <% if @collections.empty? %>
+        <p>まだ投稿はありません</p>
       <% end %>
-      <div class="row justify-content-center">
-        <%= paginate @collection %>
-      </div>
     </div>
   </div>
 </div>

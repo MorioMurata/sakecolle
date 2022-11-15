@@ -53,22 +53,24 @@
           <div class="row">
             <i class="fa-regular fa-comment-dots"></i><%= @collection.collection_comments.count %>
           </div>
-        <% @collection.collection_comments.each do |collection_comment| %>
-          <div>
-            <%= image_tag collection_comment.user.get_profile_image(50,50) %>
-            <%= collection_comment.user.user_name %>
-            <span class="ml-5">
-              <%= collection_comment.created_at.strftime('%Y/%m/%d') %>
-            </span>
-            <span class="ml-5">
-              <%= link_to "削除", collection_collection_comment_path(collection_comment.collection, collection_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
-            </span>
+          <div class="commentbox mb-5">
+            <% @collection.collection_comments.each do |collection_comment| %>
+            <div>
+              <%= image_tag collection_comment.user.get_profile_image(50,50) %>
+              <%= collection_comment.user.user_name %>
+              <span class="ml-5">
+                <%= collection_comment.created_at.strftime('%Y/%m/%d') %>
+              </span>
+              <span class="ml-5">
+                <%= link_to "削除", collection_collection_comment_path(collection_comment.collection, collection_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
+              </span>
+            </div>
+            <div class="text-break">
+              <%= simple_format(collection_comment.comment) %>
+            </div>
+            <% end %>
           </div>
-          <div class="text-break">
-            <%= simple_format(collection_comment.comment) %>
-          </div>
-        <% end %>
-      </div>
+        </div>
       <!-- comments block end -->
     </div>
     <!-- maincontents end -->

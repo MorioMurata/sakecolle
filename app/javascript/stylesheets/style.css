@@ -114,6 +114,62 @@ header{
   width: 550px;                /* 横幅を200pxに指定*/
   height: 200px;               /* 横幅を200pxに指定 */
   padding: 20px;
-  border: 1px solid #000;      /* わかりやすくボーダーを引く */
+  border: 1px solid #dcdcdc;      /* わかりやすくボーダーを引く */
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   overflow-y: scroll;          /* 縦方向にスクロール可能にする */
+}
+
+
+/*タブ切り替え*/
+.tab {
+  width: 100px;
+  padding: 10px;
+  cursor: pointer;
+  border-left: solid 1px #CCC;
+  border-bottom: solid 1px #CCC;
+  background-color: #a9a9a9;
+  color: #FFF;
+}
+.tab:first-child {
+  border-left: none;
+}
+.tab-left{
+  margin-left: 17px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.tab-right{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+/*タブがactiveのときのデザイン*/
+.tab-active {
+  color: #FFF;
+  background: #696969;
+  transition: all 0.2s ease-in-out;
+}
+/*19b5d1*/
+/*タブの中身、最初は非表示*/
+.tabbox {
+  display: none;
+  padding: 15px;
+}
+/*box-showクラスのものだけ表示*/
+.box-show {
+  display: block;
+}
+/*hover時のアクション*/
+.tab:hover{
+  box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.5);
+  transform: translateY(-1px);
+}
+/*在庫多過ぎアラートのCSS*/
+.alert{
+  padding-left: 30px;
+}
+.pagenation{
+  display: flex;
+  justify-content: center;
 }
