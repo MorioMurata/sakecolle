@@ -24,6 +24,9 @@ class Public::UsersController < ApplicationController
     @users = User.all
     #ユーザーの一覧に自分を除く全ユーザーを表示させる
     @user_index = User.where.not(id: current_user.id).where(is_deleted: false).page(params[:page]).per(4)
+    if params[:word].present?
+      @user_index = User.looks(params[:word]).where.not(id: current_user.id).where(is_deleted: false).page(params[:page]).per(4)
+    end
     @collection = @user.collections
   end
 
@@ -31,20 +34,11 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @collection = @user.collections
     @collections = @collection.where.not(remain_amount: 'finish').page(params[:page]).per(5)
-    @past_collections = @collection.finish.page(params[:post_page]).per(3)
+    @past_collections = @collection.finish.page(params[:post_page]).per(5)
       respond_to do |format|
         format.html
         format.js
       end
-    #past collectionが選択された(=URLに:pastがある)時
-    #if params[:type] == "past" 
-    #残量ステータスが"完飲"の投稿を呼び出し(.finishはenumのカラム名)
-      #@collections = @collection.finish
-    #collectionが選択された(=URLに:pastがない)時
-    #else
-    #残量ステータスが"完飲"ではない投稿を呼び出し
-      #@collections = @collection.where.not(remain_amount: 'finish')
-    #end
   end
 
   def follows
@@ -74,6 +68,9 @@ class Public::UsersController < ApplicationController
     @collection = @user.collections
     favorites = Favorite.where(user_id: @user.id).pluck(:collection_id)
     @favorite_collections = Collection.where(id: favorites).page(params[:page]).per(5)
+    if params[:word].present?
+      @favorite_collections = Collection.looks(params[:word]).where(id: favorites).page(params[:page]).per(5)
+    end
   end
 
   private

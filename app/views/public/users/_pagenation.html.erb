@@ -1,0 +1,12 @@
+<div class="tabbox box-show" id ="pagenate_collection">
+  <%= render "posted_collection", collections: collections %>
+  <div class="pagenation">
+    <%= paginate collections, remote: true %>
+  </div>
+</div>
+<div class="tabbox" id ="pagenate_past_collection">
+  <%= render "posted_collection", collections: past_collections %>
+  <div class="pagenation">
+    <%= paginate past_collections,:param_name =>'past_page', remote: true %>
+  </div>
+</div>

@@ -26,18 +26,7 @@
           </span>
         </div>
         <div class="tabbox-contents">
-          <div class="tabbox box-show" id ="pagenate_collection">
-            <%= render "posted_collection", collections: @collections %>
-            <div class="pagenation center-block">
-              <%= paginate @collections, remote: true %>
-            </div>
-          </div>
-          <div class="tabbox" id ="pagenate_past_collection">
-            <%= render "posted_collection", collections: @past_collections %>
-            <div class="pagenation center-block">
-              <%= paginate @past_collections,:param_name =>'post_page', remote: true %>
-            </div>
-          </div>
+          <%= render 'pagenation', collections: @collections, past_collections: @past_collections %>
         </div>
       </div>
       <% if @collections.empty? %>
@@ -46,3 +35,4 @@
     </div>
   </div>
 </div>
+

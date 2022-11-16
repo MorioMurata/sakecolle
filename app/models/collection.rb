@@ -28,5 +28,9 @@ class Collection < ApplicationRecord
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
   end
+  
+  def self.looks(word)
+    @collection = Collection.where("sake_name LIKE?","%#{word}%")
+  end
 
 end

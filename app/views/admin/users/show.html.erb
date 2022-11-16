@@ -23,16 +23,16 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-10 offset-2">
-      <!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
-      <% if @collection.count >= 1 %>
-        <%= over_eighty_percent_of_stock_capacity(@collections, @user) %>
-      <% end %>
       <%= link_to admin_user_path do %>
         <button type="button" class="btn btn-secondary">collection</button>
       <% end %>
       <%= link_to admin_user_path(past: true) do %>
         <button type="button" class="btn btn-secondary">past collection</button>
-      <% end %><br>
+      <% end %>
+      <!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
+      <% if @collection.count >= 1 %>
+        <%= over_eighty_percent_of_stock_capacity(@collections, @user) %>
+      <% end %>
       <% @collections.each do |collection| %>
       <div class="card mb-2">
         <div class="row no-gutters">
@@ -84,7 +84,7 @@
           </div>
         </div>
       </div>
-      <% end %><br>
+      <% end %>
     </div>
   </div>
 </div>

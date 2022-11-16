@@ -48,6 +48,7 @@ https://docs.google.com/spreadsheets/d/1ZFW3AhkhQjd5JS8vT1oNdeQuUxR-4aVW/edit#gi
 - IDE：Cloud9
 - ruby 3.1.2
 - Rails 6.1.7
+- Google Vision API (投稿画像に対し実装)
 
 ## 使用素材
 - ロゴ画像 => Canva

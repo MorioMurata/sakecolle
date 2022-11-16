@@ -1,9 +1,2 @@
-$("#pagenate_collection").html("<%= escape_javascript(render 'posted_collection', collections: @collections) %>");
-$("#pagenate_collection").append("<div class='pagenation center-block'>");
-$("#pagenate_collection").append("<%= escape_javascript(paginate @collections, remote: true) %>");
-$("#pagenate_collection").append("</div>");
+$(".tabbox-contents").html("<%= j(render 'pagenation', collections: @collections, past_collections: @past_collections) %>")
 
-$("#pagenate_past_collection").html("<%= escape_javascript(render 'posted_collection', collections: @past_collections) %>");
-$("#pagenate_past_collection").append("<div class='pagenation center-block'>");
-$("#pagenate_past_collection").append("<%= escape_javascript(paginate @past_collections,:param_name =>'post_page', remote: true) %>");
-$("#pagenate_past_collection").append("</div>");

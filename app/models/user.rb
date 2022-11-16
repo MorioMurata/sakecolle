@@ -46,5 +46,9 @@ class User < ApplicationRecord
       user.user_name = "guestuser"
     end
   end
+  
+  def self.looks(word)
+    @user = User.where("user_name LIKE?","%#{word}%")
+  end
 
 end

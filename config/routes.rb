@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
 
 
-  # 顧客用
+  # 一般ユーザー用
   # URL /users/sign_in ...
   devise_for :users, controllers: {
     confirmations: "public/confirmations",

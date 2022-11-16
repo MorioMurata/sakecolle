@@ -9,6 +9,7 @@
     </div>
     <div class="col-lg-10">
       <h1 class="pb-5">Cheersした投稿</h1>
+      <%= render 'search_collection' %>
       <% @favorite_collections.each do |collection| %>
       <div class="card mb-2">
         <div class="row no-gutters">
