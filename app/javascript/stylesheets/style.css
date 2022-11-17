@@ -111,15 +111,16 @@ header{
 }
 
 .commentbox {
-  width: 550px;                /* 横幅を200pxに指定*/
-  height: 200px;               /* 横幅を200pxに指定 */
+  width: 550px;
+  height: 200px;
   padding: 20px;
-  border: 1px solid #dcdcdc;      /* わかりやすくボーダーを引く */
+  /* わかりやすくボーダーを引く */
+  border: 1px solid #dcdcdc;      
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  overflow-y: scroll;          /* 縦方向にスクロール可能にする */
+  /* 縦方向にスクロール可能にする */
+  overflow-y: scroll;          
 }
-
 
 /*タブ切り替え*/
 .tab {
@@ -150,7 +151,6 @@ header{
   background: #696969;
   transition: all 0.2s ease-in-out;
 }
-/*19b5d1*/
 /*タブの中身、最初は非表示*/
 .tabbox {
   display: none;
@@ -169,7 +169,7 @@ header{
 .alert{
   padding-left: 30px;
 }
-.pagenation{
+.paginate{
   display: flex;
   justify-content: center;
 }

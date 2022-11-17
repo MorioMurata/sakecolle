@@ -1,3 +1,4 @@
+<!--favorited_by?メソッドについてはcollection.rbに記載-->
 <% if collection.favorited_by?(current_user) %>
   <%= link_to collection_favorites_path(collection), method: :delete, remote: true do %>
     <div class="pre-cheer-btn" style="color: #e62f8b">

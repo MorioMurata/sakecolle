@@ -26,20 +26,23 @@ class User < ApplicationRecord
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
-
+  
+  #設定された在庫上限の８割を超えているかどうかの確認。helpers/public/application_helper.rb内で使用。
   def calculate_capacity
     stocking_capacity = self.stocking_capacity.nil? ? 0 : self.stocking_capacity
     stocking_capacity * 0.8
   end
-
+  
   def followed_by?(user)
     passive_relationships.find_by(following_id: user.id).present?
   end
-
+  
+  #退会済みユーザーを弾くメソッド
   def active_for_authentication?
     super && (is_deleted == false)
   end
-
+  
+  #ゲストユーザーの情報を与えるメソッド
   def self.guest
     find_or_create_by!(user_name: 'guestuser' ,email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64
@@ -47,6 +50,7 @@ class User < ApplicationRecord
     end
   end
   
+  #ユーザー一覧ページ内検索のための記述
   def self.looks(word)
     @user = User.where("user_name LIKE?","%#{word}%")
   end

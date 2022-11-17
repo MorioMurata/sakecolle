@@ -27,7 +27,6 @@ class Admin::UsersController < ApplicationController
   private
 
   def admin_user
-
   end
 
 end

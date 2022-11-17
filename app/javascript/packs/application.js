@@ -19,7 +19,7 @@ Turbolinks.start()
 ActiveStorage.start()
 
 
-
+// フォローボタンクリック時の連打によるバグを防ぐため、フォローボタン押下後画面遷移までアニメーションを挿入。
 $(function() {
     $('.btn-follow').on('click', function() {
         $('.btn-follow').hide();
@@ -28,6 +28,7 @@ $(function() {
     });
 });
 
+// タブ機能の非同期化のための記述。全投稿を持ってきた後でタブにより表示するものを変化させる。
 // turbolinksの無効化
 $(document).on('turbolinks:load', function() {
   $(function() {

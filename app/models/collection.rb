@@ -20,15 +20,18 @@ class Collection < ApplicationRecord
     end
     sake_image.variant(resize_to_limit: [width, height]).processed
   end
-
-  def  after_open_time
+  
+  #開栓後何日経っているか計算
+  def after_open_time
      DateTime.now.to_date  - open_date.to_date
   end
-
+  
+  #いいね（cheers）されているかの確認。views/public/favorites/_favorite_btn.html.erb内で使用
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
   end
   
+  #いいね（cheers）した投稿一覧ページ内検索のための記述
   def self.looks(word)
     @collection = Collection.where("sake_name LIKE?","%#{word}%")
   end
