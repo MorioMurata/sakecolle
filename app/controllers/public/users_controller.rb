@@ -36,8 +36,9 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @collection = @user.collections
+    @user_collections = @collection.where.not(remain_amount: 'finish')
     #非同期通信のタブ機能により完飲前/完飲後の投稿を分けて表示。それぞれのインスタンス変数を定義。
-    @collections = @collection.where.not(remain_amount: 'finish').page(params[:page]).per(5)
+    @collections = @user_collections.page(params[:page]).per(5)
     #非同期のタブ切り替えに伴い、ページネーションも非同期でリンクさせるためparamsに渡す値を分けている。
     @past_collections = @collection.finish.page(params[:post_page]).per(5)
       #ページネーション非同期化ための記述
