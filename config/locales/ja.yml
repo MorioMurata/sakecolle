@@ -39,6 +39,7 @@ ja:
             user_name:
               blank: "が空欄です。"
               too_long: "が長過ぎます。（２０字以内）"
+              taken: "はすでに使用されています。"
             introduction:
               too_long: "が長過ぎます"
         collection:

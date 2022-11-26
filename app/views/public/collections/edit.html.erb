@@ -1,4 +1,4 @@
-<%= render 'layouts/header', user: @user, collection: @collection %>
+<%= render 'layouts/header', user: @user, collection: @collections %>
 <%= render 'layouts/introduction', user: @user %>
 <div class="container">
   <div class="row">
@@ -35,23 +35,23 @@
       <h4>味わい１</h4>
       <div class="mb-4">
         <%= f.radio_button :tastes_rich, 1, checked: @edit_collection.tastes_rich == "strong" ? true : false %>
-        <%= f.label :tastes_rich, "濃醇" %>
+        <%= f.label :tastes_rich, "濃醇", value: 1 %>
         <%= f.radio_button :tastes_rich, 2, checked: @edit_collection.tastes_rich == "light" ? true : false %>
-        <%= f.label :tastes_rich, "淡麗" %>
+        <%= f.label :tastes_rich, "淡麗", value: 2 %>
       </div>
       <h4>味わい２</h4>
       <div class="mb-4">
         <%= f.radio_button :tastes_sweet, 1, checked: @edit_collection.tastes_sweet == "sweet" ? true : false %>
-        <%= f.label :tastes_sweet, "甘口" %>
+        <%= f.label :tastes_sweet, "甘口", value: 1 %>
         <%= f.radio_button :tastes_sweet, 2, checked: @edit_collection.tastes_sweet == "dry" ? true : false %>
-        <%= f.label :tastes_sweet, "辛口" %>
+        <%= f.label :tastes_sweet, "辛口", value: 2 %>
       </div>
       <h4>フレーバー</h4>
       <div class="mb-4">
         <%= f.radio_button :is_aromatic, 1, checked: @edit_collection.is_aromatic == "aromatic" ? true : false %>
-        <%= f.label :is_aromatic, "フルーティ" %>
+        <%= f.label :is_aromatic, "フルーティ", value: 1 %>
         <%= f.radio_button :is_aromatic, 2, checked: @edit_collection.is_aromatic == "not_aromatic" ? true : false %>
-        <%= f.label :is_aromatic, "スッキリ" %>
+        <%= f.label :is_aromatic, "スッキリ", value: 2 %>
       </div>
       <%= f.submit '変更を保存' %>
     </div>

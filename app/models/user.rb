@@ -50,6 +50,11 @@ class User < ApplicationRecord
     end
   end
   
+  #ゲストユーザーかどうかを判定するメソッド
+  def is_guest?
+    return email == "guest@example.com"
+  end
+  
   #ユーザー一覧ページ内検索のための記述
   def self.looks(word)
     @user = User.where("user_name LIKE?","%#{word}%")

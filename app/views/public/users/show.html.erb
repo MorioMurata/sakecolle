@@ -1,5 +1,5 @@
 <div>
-  <%= render 'layouts/header', user: @user, collection: @collection %>
+  <%= render 'layouts/header', user: @user, collection: @collections %>
   <%= render 'layouts/introduction', user: @user %>
 </div>
 <div class="container">
@@ -19,14 +19,14 @@
           <span class="alert">
             <% if @user.email != "guest@example.com" %>
               <!--ユーザー指定の在庫上限の８割を突破したらアラート。over_eighty_percent_of_stock_capacityメソッドについてはapplication_helper.rb内に定義。-->
-              <% if @collection.count >= 1 && @user == current_user %>
+              <% if @collections.count >= 1 && @user == current_user %>
                 <%= over_eighty_percent_of_stock_capacity(@user_collections, @user) %>
               <% end %>
             <% end %>
           </span>
         </div>
         <div class="tabbox-contents">
-          <%= render 'pagenation', collections: @collections, past_collections: @past_collections %>
+          <%= render 'pagenation', collections: @current_collections, past_collections: @past_collections %>
         </div>
       </div>
       <% if @collections.empty? %>

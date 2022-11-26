@@ -51,7 +51,7 @@ class Public::CollectionsController < ApplicationController
   def edit
     @edit_collection = Collection.find(params[:id])
     @user = current_user
-    @collection = @user.collections
+    @collections = @user.collections
   end
 
   def update
@@ -76,7 +76,7 @@ class Public::CollectionsController < ApplicationController
       redirect_to user_path(collection.user_id)
     else
       @user = current_user
-      @collection = @user.collections
+      @collections = @user.collections
       @edit_collection = collection
       render :edit
     end

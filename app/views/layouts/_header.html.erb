@@ -19,7 +19,7 @@
           <%= user.followers.count %>フォロワー
         <% end %><br>
         </div>
-        <% if user.email != "guest@example.com" %>
+        <% if user.is_guest? == false %>
           <b><%= collection.where.not(remain_amount: "finish").count %></b> / <%= user.stocking_capacity %> collections
         <% else %>
           <b><%= collection.where.not(remain_amount: "finish").count %></b>collections
@@ -27,7 +27,7 @@
       </div>
       <div class="col-lg-2">
         <div class="gear">
-        <% if (user == current_user) && (user.email != "guest@example.com") %>
+        <% if (user == current_user) && (user.is_guest? == false) %>
           <%= link_to edit_user_path(user), class: "gear" do %>
             <i class="fa-solid fa-gear faa-spin animated"></i>
           <% end %>

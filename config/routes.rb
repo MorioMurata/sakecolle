@@ -34,9 +34,9 @@ Rails.application.routes.draw do
   scope module: 'public' do
     root to: 'homes#top'
     resources :users, except: [:new, :create] do
-      get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
-      patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
       resource :relationships, only: [:create, :destroy]
+      get :unsubscribe, on: :member
+      patch :withdrawal, on: :member
       get :follows, on: :member
       get :followers, on: :member
       get :favorites, on: :member

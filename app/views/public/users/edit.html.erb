@@ -1,4 +1,4 @@
-<%= render 'layouts/header', user: @user, collection: @collection %>
+<%= render 'layouts/header', user: @user, collection: @collections %>
 <%= render 'layouts/introduction', user: @user %>
 <div class="container">
   <%= form_with model: @user do |f| %>
@@ -31,7 +31,7 @@
         <%= f.submit "変更を保存" %>
       </div>
       <div class="pt-5">
-        <%= link_to "退会する", user_unsubscribe_path(current_user.id), class: "btn btn-sm btn-danger" %>
+        <%= link_to "退会する", unsubscribe_user_path(current_user.id), class: "btn btn-sm btn-danger" %>
       </div>
     </div>
   </div>
