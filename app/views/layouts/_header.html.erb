@@ -13,10 +13,10 @@
         </div>
         <div class="number">
         <%=link_to follows_user_path(user.id), class: "number" do %>
-          <%= user.followings.count %>フォロー
+          <%= user.followings.where(is_deleted: false).count %>フォロー
         <% end %>
         <%=link_to followers_user_path(user.id), class: "number" do %>
-          <%= user.followers.count %>フォロワー
+          <%= user.followers.where(is_deleted: false).count %>フォロワー
         <% end %><br>
         </div>
         <% if user.is_guest? == false %>

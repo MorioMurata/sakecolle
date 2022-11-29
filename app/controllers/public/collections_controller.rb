@@ -38,6 +38,10 @@ class Public::CollectionsController < ApplicationController
   def show
     @collection = Collection.find(params[:id])
     @user = @collection.user
+    if @user.is_deleted == true
+      flash[:notice] = '退会済みユーザーの投稿は表示できません。'
+      redirect_to user_path(current_user)
+    end
     @user_collection = @collection.user.collections
     @collection_comment = CollectionComment.new
   end

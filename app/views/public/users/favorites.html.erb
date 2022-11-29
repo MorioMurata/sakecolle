@@ -11,60 +11,62 @@
       <h1 class="pb-5">Cheersした投稿</h1>
       <%= render 'search_collection' %>
       <% @favorite_collections.each do |collection| %>
-      <div class="card mb-2">
-        <div class="row no-gutters">
-          <div class="img col-md-2">
-            <div align="center">
-              <%= link_to collection_path(collection),data: {"turbolinks"=>false} do %>
-                <%= image_tag collection.get_sake_image(100,100) %>
-              <% end %>
+        <% if collection.user.is_deleted == false %>
+          <div class="card mb-2">
+            <div class="row no-gutters">
+              <div class="img col-md-2">
+                <div align="center">
+                  <%= link_to collection_path(collection),data: {"turbolinks"=>false} do %>
+                    <%= image_tag collection.get_sake_image(100,100) %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <%= link_to collection_path(collection),data: {"turbolinks"=>false} do %>
+                      <%= collection.sake_name %>
+                    <% end %>
+                  </h5>
+                  <p class="card-text">
+                    <% if collection.tastes_rich == true %>
+                      <span class="text-success">濃醇</span>
+                    <% else %>
+                      <span class="text-success">淡麗</span>
+                    <% end %>
+                    <% if collection.tastes_sweet == true %>
+                      <span class="text-success">甘口</span>
+                    <% else %>
+                      <span class="text-success">辛口</span>
+                    <% end %>
+                    <% if collection.is_aromatic == true %>
+                      <span class="text-success">フルーティ</span>
+                    <% else %>
+                      <span class="text-success">スッキリ</span>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div id="favorites-<%= collection.id %>" class="mt-5">
+                   <%= render 'public/favorites/favorite_btn', collection: collection %>
+                 </div>
+              </div>
+              <div class="col-md-2 mt-4">
+                <div align="center">
+                  <%= link_to user_path(collection.user),data: {"turbolinks"=>false} do %>
+                    <%= image_tag collection.user.get_profile_image(75,75), class: "profimg" %>
+                  <% end %>
+                </div>
+                <div align="center">
+                  <%= link_to user_path(collection.user),data: {"turbolinks"=>false} do %>
+                    <%= collection.user.user_name %>
+                  <% end %>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="card-body">
-              <h5 class="card-title">
-                <%= link_to collection_path(collection),data: {"turbolinks"=>false} do %>
-                  <%= collection.sake_name %>
-                <% end %>
-              </h5>
-              <p class="card-text">
-                <% if collection.tastes_rich == true %>
-                  <span class="text-success">濃醇</span>
-                <% else %>
-                  <span class="text-success">淡麗</span>
-                <% end %>
-                <% if collection.tastes_sweet == true %>
-                  <span class="text-success">甘口</span>
-                <% else %>
-                  <span class="text-success">辛口</span>
-                <% end %>
-                <% if collection.is_aromatic == true %>
-                  <span class="text-success">フルーティ</span>
-                <% else %>
-                  <span class="text-success">スッキリ</span>
-                <% end %>
-              </p>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div id="favorites-<%= collection.id %>" class="mt-5">
-               <%= render 'public/favorites/favorite_btn', collection: collection %>
-             </div>
-          </div>
-          <div class="col-md-2 mt-4">
-            <div align="center">
-              <%= link_to user_path(collection.user),data: {"turbolinks"=>false} do %>
-                <%= image_tag collection.user.get_profile_image(75,75), class: "profimg" %>
-              <% end %>
-            </div>
-            <div align="center">
-              <%= link_to user_path(collection.user),data: {"turbolinks"=>false} do %>
-                <%= collection.user.user_name %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
+        <% end %>
       <% end %>
       <div class="row justify-content-center">
         <%= paginate @favorite_collections %>
