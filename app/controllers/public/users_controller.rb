@@ -50,11 +50,11 @@ class Public::UsersController < ApplicationController
   end
 
   def follows
-    @users = @user.followings
+    @users = @user.where(is_deleted: false).followings
   end
 
   def followers
-    @users = @user.followers
+    @users = @user.where(is_deleted: false).followers
   end
 
   def unsubscribe
