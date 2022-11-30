@@ -28,10 +28,10 @@
                   <% end %>
                 </h5>
                 <p class="card-text number">
-                  <%= user.followings.count %>フォロー
+                  <%= user.followings.where(is_deleted: false).count %>フォロー
                 </p>
                 <p class="card-text number">
-                  <%= user.followers.count %>フォロワー
+                  <%= user.followers.where(is_deleted: false).count %>フォロワー
                 </p>
               </div>
             </div>
