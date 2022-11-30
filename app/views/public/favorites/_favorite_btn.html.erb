@@ -1,16 +1,26 @@
+<% favorites_count = 0 %>
+
+<%# collection.favorites.each do |e| %>
+  <%# if e.user.is_deleted == false %>
+    <%# favorites_count += 1 %>
+  <%# end %>
+<%# end %>
+
+<% collection.favorites.map{|e| e.user.is_deleted == false ? favorites_count += 1 : favorites_count += 0} %>
+
 <!--favorited_by?メソッドについてはcollection.rbに記載-->
-<% if collection.user.is_deleted == false %>
-  <% if collection.favorited_by?(current_user) %>
-    <%= link_to collection_favorites_path(collection), method: :delete, remote: true do %>
-      <div class="pre-cheer-btn" style="color: #e62f8b">
-        <i class="fa-solid fa-champagne-glasses"></i><%= collection.favorites.count %>
-      </div>
-    <% end %>
-  <% else %>
-    <%= link_to collection_favorites_path(collection), method: :post, remote: true do %>
-      <div class="cheer-btn">
-        <i class="fa-solid fa-champagne-glasses"></i><%= collection.favorites.count %>
-      </div>
-    <% end %>
+<% if collection.favorited_by?(current_user) %>
+  <%= link_to collection_favorites_path(collection), method: :delete, remote: true do %>
+   <div class="pre-cheer-btn" style="color: #e62f8b">
+      <i class="fa-solid fa-champagne-glasses"></i>
+      <%= favorites_count %>
+    </div>
+  <% end %>
+<% else %>
+  <%= link_to collection_favorites_path(collection), method: :post, remote: true do %>
+    <div class="cheer-btn">
+      <i class="fa-solid fa-champagne-glasses"></i>
+      <%= favorites_count %>
+    </div>
   <% end %>
 <% end %>
